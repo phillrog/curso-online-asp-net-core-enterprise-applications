@@ -3,9 +3,10 @@ version: '3.4'
 services:
 
   sql.data:
-    image: mcr.microsoft.com/mssql/server:2017-latest
+    #image: mcr.microsoft.com/mssql/server:2017-latest
     container_name: dev_sql
     environment:
+      - ASPNETCORE_ENVIRONMENT=Development
       - SA_PASSWORD=yourStrong(!)Password
       - ACCEPT_EULA=Y
     healthcheck:
@@ -27,3 +28,4 @@ services:
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+      - C:\Users\phill\.nuget\packages\:/root/.nuget/packages:ro
