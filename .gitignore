@@ -1,0 +1,19 @@
+﻿################################################################################
+# Este arquivo .gitignore foi criado automaticamente pelo Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/src/building blocks/NSE.Core/obj
+/src/building blocks/NSE.Core/bin/Debug/netcoreapp3.1
+/src/services/NSE.Carrinho.API/obj
+/src/services/NSE.Carrinho.API/bin/Debug/netcoreapp3.1
+/src/services/NSE.Catalogo.API/obj
+/src/services/NSE.Catalogo.API/bin/Debug/netcoreapp3.1
+/src/services/NSE.Identidade.API/obj
+/src/services/NSE.Identidade.API/bin/Debug/netcoreapp3.1
+/src/services/NSE.Pagamento.API/obj
+/src/services/NSE.Pagamento.API/bin/Debug/netcoreapp3.1
+/src/services/NSE.Pedido.API/obj
+/src/services/NSE.Pedido.API/bin/Debug/netcoreapp3.1
+/src/web/NSE.WebApp.MVC/obj
+/src/web/NSE.WebApp.MVC/bin/Debug/netcoreapp3.1
