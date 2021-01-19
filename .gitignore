@@ -17,3 +17,5 @@
 /src/services/NSE.Pedido.API/bin/Debug/netcoreapp3.1
 /src/web/NSE.WebApp.MVC/obj
 /src/web/NSE.WebApp.MVC/bin/Debug/netcoreapp3.1
+/obj
+/bin/Debug

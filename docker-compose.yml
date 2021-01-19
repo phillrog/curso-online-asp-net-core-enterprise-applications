@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  nse.identidade.api:
+    image: ${DOCKER_REGISTRY-}nseidentidadeapi
+    build:
+      context: .
+      dockerfile: src/services/NSE.Identidade.API/Dockerfile
