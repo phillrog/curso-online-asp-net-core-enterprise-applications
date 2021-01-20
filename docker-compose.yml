@@ -3,9 +3,9 @@ version: '3.4'
 services:
   sql.data:
     image: mcr.microsoft.com/mssql/server:2017-latest
+
   nse.identidade.api:
     image: ${DOCKER_REGISTRY-}nseidentidadeapi
     build:
       context: .
-      dockerfile: src/services/NSE.Identidade.API/Dockerfile
-  
+      dockerfile: src/services/NSE.Identidade.API/Dockerfile     
