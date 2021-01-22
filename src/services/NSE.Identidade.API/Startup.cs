@@ -8,6 +8,10 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.OpenApi.Models;
 using System;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using NSE.Identidade.API.Extensions;
 
 namespace NSE.Identidade.API
 {
@@ -40,6 +44,32 @@ namespace NSE.Identidade.API
 				.AddRoles<IdentityRole>()				
 				.AddEntityFrameworkStores<ApplicationDbContext>()
 				.AddDefaultTokenProviders();
+
+			// JWT
+
+			var appSettingsSection = Configuration.GetSection("AppSettings");
+			services.Configure<AppSettings>(appSettingsSection);
+
+			var appSettings = appSettingsSection.Get<AppSettings>();
+			var key = Encoding.ASCII.GetBytes(appSettings.Secret);
+			services.AddAuthentication(options => {
+				options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+				options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+			}).AddJwtBearer(beareOptions =>
+			{
+				beareOptions.RequireHttpsMetadata = true;
+				beareOptions.SaveToken = true;
+				beareOptions.TokenValidationParameters = new TokenValidationParameters
+				{
+					ValidateIssuerSigningKey = true,
+					IssuerSigningKey = new SymmetricSecurityKey(key),
+					ValidateIssuer = true,
+					ValidateAudience = true,
+					ValidAudience = appSettings.ValidoEm,
+					ValidIssuer = appSettings.Emissor
+				};
+
+			});
 
 			services.AddControllers();
 
