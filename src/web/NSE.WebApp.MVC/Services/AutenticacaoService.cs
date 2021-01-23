@@ -43,7 +43,20 @@ namespace NSE.WebApp.MVC.Services
 			var registroContent = new StringContent(JsonSerializer.Serialize(usuarioRegistro), Encoding.UTF8, "application/json");
 			var response = await _httpClient.PostAsync("http://nse.identidade.api/api/identidade/nova-conta", registroContent);
 
-			return JsonSerializer.Deserialize<UsuarioRespostaLogin>(await response.Content.ReadAsStringAsync());
+			var options = new JsonSerializerOptions
+			{
+				PropertyNameCaseInsensitive = true
+			};
+
+			if (!TratarErrosResponse(response))
+			{
+				return new UsuarioRespostaLogin
+				{
+					ResponseResult =
+						JsonSerializer.Deserialize<ResponseResult>(await response.Content.ReadAsStringAsync(), options)
+				};
+			}
+			return JsonSerializer.Deserialize<UsuarioRespostaLogin>(await response.Content.ReadAsStringAsync(), options);
 		}
 	}
 }

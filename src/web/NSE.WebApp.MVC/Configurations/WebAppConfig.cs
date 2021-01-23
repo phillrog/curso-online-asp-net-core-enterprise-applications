@@ -16,16 +16,16 @@ namespace NSE.WebApp.MVC.Configurations
 
 		public static IApplicationBuilder UseWebAppConfiguration(this IApplicationBuilder app, IWebHostEnvironment env)
 		{
-			if (env.IsDevelopment())
-			{
-				app.UseDeveloperExceptionPage();
-			}
-			else
-			{
-				app.UseExceptionHandler("/erro/500");
-				app.UseStatusCodePagesWithRedirects("/erro/{0}");
-				app.UseHsts();
-			}
+			//if (env.IsDevelopment())
+			//{
+			//	app.UseDeveloperExceptionPage();
+			//}
+			//else
+			//{
+			//}
+			app.UseExceptionHandler("/erro/500");
+			app.UseStatusCodePagesWithRedirects("/erro/{0}");
+			app.UseHsts();
 			app.UseHttpsRedirection();
 			app.UseStaticFiles();
 
@@ -41,7 +41,7 @@ namespace NSE.WebApp.MVC.Configurations
 					name: "default",
 					pattern: "{controller=Home}/{action=Index}/{id?}");
 			});
-			
+
 			return app;
 		}
 	}
