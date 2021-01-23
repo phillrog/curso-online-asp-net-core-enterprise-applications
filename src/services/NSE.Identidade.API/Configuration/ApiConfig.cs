@@ -10,6 +10,12 @@ namespace NSE.Identidade.API.Configuration
 		public static IServiceCollection AddApiConfiguration(this IServiceCollection services)
 		{
 			services.AddControllers();
+
+			//services.AddHttpsRedirection(options =>
+			//{
+			//	options.HttpsPort = 443;
+			//});
+
 			return services;
 		}
 
@@ -20,7 +26,7 @@ namespace NSE.Identidade.API.Configuration
 				app.UseDeveloperExceptionPage();
 			}
 
-			app.UseHttpsRedirection();
+			//app.UseHttpsRedirection();
 
 			app.UseRouting();
 

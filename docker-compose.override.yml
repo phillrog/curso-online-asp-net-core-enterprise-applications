@@ -15,6 +15,9 @@ services:
               retries: 20
         ports:
               - "1435:1433"
+        networks:
+              - local
+
     
     nse.identidade.api:
         environment:
@@ -31,6 +34,8 @@ services:
               - ./vsdbg:/vsdbg:ro
               - ${HOME}/.nuget/packages:/root/.nuget/packages:ro
               - ${DOTNET_PATH}/sdk/NuGetFallbackFolder:/root/.nuget/fallbackpackages:ro
+        networks:
+              - local
 
     nse.webapp.mvc:
         environment:
@@ -47,3 +52,8 @@ services:
               - ./vsdbg:/vsdbg:ro
               - ${HOME}/.nuget/packages:/root/.nuget/packages:ro
               - ${DOTNET_PATH}/sdk/NuGetFallbackFolder:/root/.nuget/fallbackpackages:ro  
+        networks:
+              - local
+networks:
+    local:
+        driver: bridge
