@@ -19,7 +19,7 @@ namespace NSE.WebApp.MVC.Services
 		}
 		public async Task<UsuarioRespostaLogin> Login(UsuarioLogin usuarioLogin)
 		{
-			var loginContent = new StringContent(JsonSerializer.Serialize(usuarioLogin), Encoding.UTF8, "application/json");
+			var loginContent = ObterConteudo(usuarioLogin);
 			var response = await _httpClient.PostAsync("http://nse.identidade.api/api/identidade/autenticar", loginContent);
 
 			var options = new JsonSerializerOptions
@@ -31,16 +31,15 @@ namespace NSE.WebApp.MVC.Services
 			{
 				return new UsuarioRespostaLogin
 				{
-					ResponseResult =
-						JsonSerializer.Deserialize<ResponseResult>(await response.Content.ReadAsStringAsync(), options)
+					ResponseResult = await DeserializarObjetoResponse<ResponseResult>(response)
 				};
 			}
-			return JsonSerializer.Deserialize<UsuarioRespostaLogin>(await response.Content.ReadAsStringAsync(), options);
+			return await DeserializarObjetoResponse<UsuarioRespostaLogin>(response);
 		}
 
 		public async Task<UsuarioRespostaLogin> Resgitro(UsuarioRegistro usuarioRegistro)
 		{
-			var registroContent = new StringContent(JsonSerializer.Serialize(usuarioRegistro), Encoding.UTF8, "application/json");
+			var registroContent = ObterConteudo(usuarioRegistro);
 			var response = await _httpClient.PostAsync("http://nse.identidade.api/api/identidade/nova-conta", registroContent);
 
 			var options = new JsonSerializerOptions
@@ -52,11 +51,10 @@ namespace NSE.WebApp.MVC.Services
 			{
 				return new UsuarioRespostaLogin
 				{
-					ResponseResult =
-						JsonSerializer.Deserialize<ResponseResult>(await response.Content.ReadAsStringAsync(), options)
+					ResponseResult = await DeserializarObjetoResponse<ResponseResult>(response)
 				};
 			}
-			return JsonSerializer.Deserialize<UsuarioRespostaLogin>(await response.Content.ReadAsStringAsync(), options);
+			return await DeserializarObjetoResponse<UsuarioRespostaLogin>(response);
 		}
 	}
 }
