@@ -31,7 +31,7 @@ namespace NSE.WebApp.MVC.Controllers
 
             var resposta = await _autenticacaoService.Resgitro(usuarioRegistro);
 
-            if (string.IsNullOrEmpty(resposta)) return View(usuarioRegistro);
+            if (false) return View(usuarioRegistro);
 
             return RedirectToAction("Index", "Home");
         }
