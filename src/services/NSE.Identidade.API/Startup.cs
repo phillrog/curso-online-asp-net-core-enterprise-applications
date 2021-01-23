@@ -41,7 +41,8 @@ namespace NSE.Identidade.API
 			   options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
 			services.AddDefaultIdentity<IdentityUser>()
-				.AddRoles<IdentityRole>()				
+				.AddRoles<IdentityRole>()
+				.AddErrorDescriber<IdentityMensagensPortugues>()
 				.AddEntityFrameworkStores<ApplicationDbContext>()
 				.AddDefaultTokenProviders();
 
