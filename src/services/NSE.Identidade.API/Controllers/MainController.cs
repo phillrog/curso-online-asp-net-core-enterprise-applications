@@ -45,6 +45,9 @@ namespace NSE.Identidade.API.Controllers
 			Erros.Add(erro);
 		}
 
-
+		protected void LimparErrosProcessamento()
+		{
+			Erros.Clear();
+		}
 	}
 }
