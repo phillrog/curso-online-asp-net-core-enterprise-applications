@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,9 +23,28 @@ namespace NSE.Identidade.API.Controllers
 			}));
 		}
 
-		private bool OperacaoValida()
+		protected ActionResult CustomResponse(ModelStateDictionary modelState)
+		{
+			var erros = modelState.Values.SelectMany(e => e.Errors);
+
+			foreach (var erro in erros)
+			{
+				AdicionarErroProcessamento(erro.ErrorMessage);
+			}
+
+			return CustomResponse();
+		}
+
+		protected bool OperacaoValida()
 		{
 			return !Erros.Any();
 		}
+
+		protected void AdicionarErroProcessamento(string erro)
+		{
+			Erros.Add(erro);
+		}
+
+
 	}
 }
