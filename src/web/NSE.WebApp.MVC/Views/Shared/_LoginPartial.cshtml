@@ -1,8 +1,10 @@
-﻿<ul class="navbar-nav">
-	@if (Context.User.Identity.IsAuthenticated)
+﻿@using NSE.WebApp.MVC.Extensions 
+@inject IUser AppUser
+<ul class="navbar-nav">
+	@if (AppUser.EstaAutenticado())
 	{
 		<li class="nav-item">
-			<a class="nav-link text-dark" title="Manage">Olá Usuário</a>
+			<a class="nav-link text-dark" title="Manage">Olá @AppUser.ObterUserEmail()</a>
 		</li>
 		<li class="nav-item">
 			<a class="nav-link text-dark" asp-controller="Identidade" asp-action="Logout">Sair</a>
