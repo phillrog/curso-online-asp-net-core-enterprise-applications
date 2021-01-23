@@ -19,3 +19,5 @@
 /src/web/NSE.WebApp.MVC/bin/Debug/netcoreapp3.1
 /obj
 /bin/Debug
+/sql
+/src/services/NSE.WebApp.MVC/obj/Docker/CanonicalServiceNames.cache

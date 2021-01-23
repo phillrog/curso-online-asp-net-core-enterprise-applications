@@ -2,42 +2,48 @@ version: '3.4'
 
 services:
 
-  sql.data:
-    #image: mcr.microsoft.com/mssql/server:2017-latest
-    container_name: dev_sql
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - SA_PASSWORD=yourStrong(!)Password
-      - ACCEPT_EULA=Y
-    healthcheck:
-      test: ["CMD", "/opt/mssql-tools/bin/sqlcmd", "-Usa", "-PyourStrong(!)Password", "-Q", "select 1"]
-      interval: 1s
-      retries: 20
-    volumes:
-      - ./sql:/scripts
-    ports:
-      - "1435:1433"
+    sql.data:
+        #image: mcr.microsoft.com/mssql/server:2017-latest
+        container_name: dev_sql
+        environment:
+              - ASPNETCORE_ENVIRONMENT=Development
+              - SA_PASSWORD=yourStrong(!)Password
+              - ACCEPT_EULA=Y
+        healthcheck:
+              test: ["CMD", "/opt/mssql-tools/bin/sqlcmd", "-Usa", "-PyourStrong(!)Password", "-Q", "select 1"]
+              interval: 1s
+              retries: 20
+        ports:
+              - "1435:1433"
+    
+    nse.identidade.api:
+        environment:
+              - ASPNETCORE_ENVIRONMENT=Development
+              - ASPNETCORE_URLS=https://+:443;http://+:80
+              - DOTNET_USE_POLLING_FILE_WATCHER=1
+        ports:
+              - "4001:80"
+              - "5001:443"
+        volumes:
+              - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+              - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+              - C:\Users\phill\.nuget\packages\:/root/.nuget/packages:ro
+              - ./vsdbg:/vsdbg:ro
+              - ${HOME}/.nuget/packages:/root/.nuget/packages:ro
+              - ${DOTNET_PATH}/sdk/NuGetFallbackFolder:/root/.nuget/fallbackpackages:ro
 
-  nse.identidade.api:
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:443;http://+:80
-      - DOTNET_USE_POLLING_FILE_WATCHER=1
-    ports:
-      - "4001:80"
-      - "5001:443"
-    volumes:
-      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
-      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
-      - C:\Users\phill\.nuget\packages\:/root/.nuget/packages:ro
-      - ./vsdbg:/vsdbg:ro
-      - ${HOME}/.nuget/packages:/root/.nuget/packages:ro
-      - ${DOTNET_PATH}/sdk/NuGetFallbackFolder:/root/.nuget/fallbackpackages:ro
-    depends_on:
-      sql.data:
-        condition: service_healthy
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:5001"]
-      interval: 30s
-      timeout: 30s
-      retries: 3
+    nse.webapp.mvc:
+        environment:
+              - ASPNETCORE_ENVIRONMENT=Development
+              - ASPNETCORE_URLS=https://+:447;http://+:81
+              - DOTNET_USE_POLLING_FILE_WATCHER=1
+        ports:
+              - "4002:81"
+              - "5002:447"
+        volumes:
+              - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+              - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+              - C:\Users\phill\.nuget\packages\:/root/.nuget/packages:ro
+              - ./vsdbg:/vsdbg:ro
+              - ${HOME}/.nuget/packages:/root/.nuget/packages:ro
+              - ${DOTNET_PATH}/sdk/NuGetFallbackFolder:/root/.nuget/fallbackpackages:ro  

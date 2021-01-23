@@ -10,3 +10,9 @@ services:
     build:
       context: .
       dockerfile: src/services/NSE.Identidade.API/Dockerfile     
+
+  nse.webapp.mvc:
+    image: ${DOCKER_REGISTRY-}nsewebappmvc
+    build:
+      context: .
+      dockerfile: src/web/NSE.WebApp.MVC/Dockerfile     
