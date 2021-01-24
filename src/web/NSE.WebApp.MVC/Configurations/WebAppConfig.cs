@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NSE.WebApp.MVC.Extensions;
@@ -8,13 +9,14 @@ namespace NSE.WebApp.MVC.Configurations
 {
 	public static class WebAppConfig
 	{
-		public static IServiceCollection AddWebAppConfiguration(this IServiceCollection services)
+		public static void AddWebAppConfiguration(this IServiceCollection services, IConfiguration configuration)
 		{
 			services.AddControllersWithViews();
-			return services;
+			services.Configure<AppSettings>(configuration);
+
 		}
 
-		public static IApplicationBuilder UseWebAppConfiguration(this IApplicationBuilder app, IWebHostEnvironment env)
+		public static void UseWebAppConfiguration(this IApplicationBuilder app, IWebHostEnvironment env)
 		{
 			//if (env.IsDevelopment())
 			//{
@@ -41,8 +43,6 @@ namespace NSE.WebApp.MVC.Configurations
 					name: "default",
 					pattern: "{controller=Home}/{action=Index}/{id?}");
 			});
-
-			return app;
 		}
 	}
 }
