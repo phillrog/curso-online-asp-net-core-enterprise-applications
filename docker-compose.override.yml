@@ -22,11 +22,29 @@ services:
     nse.identidade.api:
         environment:
               - ASPNETCORE_ENVIRONMENT=Development
-              - ASPNETCORE_URLS=https://+:443;http://+:80
+              - ASPNETCORE_URLS=https://+:5001;http://+:4001
               - DOTNET_USE_POLLING_FILE_WATCHER=1
         ports:
-              - "4001:80"
-              - "5001:443"
+              - "4001:4001"
+              - "5001:5001"
+        volumes:
+              - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+              - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+              - C:\Users\phill\.nuget\packages\:/root/.nuget/packages:ro
+              - ./vsdbg:/vsdbg:ro
+              - ${HOME}/.nuget/packages:/root/.nuget/packages:ro
+              - ${DOTNET_PATH}/sdk/NuGetFallbackFolder:/root/.nuget/fallbackpackages:ro
+        networks:
+              - local
+
+    nse.catalogo.api:
+        environment:
+              - ASPNETCORE_ENVIRONMENT=Development
+              - ASPNETCORE_URLS=https://+:5002;http://+:4002
+              - DOTNET_USE_POLLING_FILE_WATCHER=1
+        ports:
+              - "4002:4002"
+              - "5002:5002"
         volumes:
               - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
               - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
@@ -40,11 +58,11 @@ services:
     nse.webapp.mvc:
         environment:
               - ASPNETCORE_ENVIRONMENT=Development
-              - ASPNETCORE_URLS=https://+:447;http://+:81
+              - ASPNETCORE_URLS=https://+:443;http://+:80
               - DOTNET_USE_POLLING_FILE_WATCHER=1
         ports:
-              - "4002:81"
-              - "5002:447"
+              - "4000:80"
+              - "5000:443"
         volumes:
               - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
               - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
