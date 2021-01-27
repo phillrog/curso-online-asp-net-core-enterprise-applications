@@ -21,3 +21,5 @@
 /bin/Debug
 /sql
 /src/services/NSE.WebApp.MVC/obj/Docker/CanonicalServiceNames.cache
+/src/building blocks/NSE.WebAPI.Core/bin/Debug/netcoreapp3.1
+/src/building blocks/NSE.WebAPI.Core/obj
