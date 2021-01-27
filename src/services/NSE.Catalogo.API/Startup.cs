@@ -35,7 +35,7 @@ namespace NSE.Catalogo.API
 
 			services.AddJwtConfiguration(Configuration);
 
-			services.AddSwaggerGen();
+			services.AppSwaggerConfiguration();
 
 			services.RegistrarServices();
 		}
