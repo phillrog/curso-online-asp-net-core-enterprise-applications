@@ -34,7 +34,7 @@ namespace NSE.Catalogo.API.Configuration
 				app.UseDeveloperExceptionPage();
 			}
 
-			app.UseHttpsRedirection();
+			//app.UseHttpsRedirection();
 
 			app.UseRouting();
 

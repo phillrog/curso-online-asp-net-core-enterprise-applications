@@ -14,6 +14,7 @@ namespace NSE.WebApp.MVC.Configurations
 		public static void RegisterServices(this IServiceCollection services)
 		{
 			services.AddHttpClient<IAutenticacaoService, AutenticacaoService>();
+			services.AddHttpClient<ICatalogoService, CatalogoService>();
 			services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 			services.AddScoped<IUser, AspNetUser>();
 		}

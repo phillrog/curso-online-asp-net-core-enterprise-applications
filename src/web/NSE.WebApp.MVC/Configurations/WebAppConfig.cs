@@ -41,7 +41,7 @@ namespace NSE.WebApp.MVC.Configurations
 			{
 				endpoints.MapControllerRoute(
 					name: "default",
-					pattern: "{controller=Home}/{action=Index}/{id?}");
+					pattern: "{controller=Catalogo}/{action=Index}/{id?}");
 			});
 		}
 	}
