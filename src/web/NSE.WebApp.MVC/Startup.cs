@@ -32,7 +32,7 @@ namespace NSE.WebApp.MVC
 		{
 			services.AddIndetityConfiguration();
 			services.AddWebAppConfiguration(Configuration);
-			services.RegisterServices();
+			services.RegisterServices(Configuration);
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
