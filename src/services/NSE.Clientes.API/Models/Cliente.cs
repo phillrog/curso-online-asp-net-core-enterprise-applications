@@ -11,14 +11,14 @@ namespace NSE.Clientes.API.Models
     {
         public string Nome { get; private set; }
         public string Email { get; private set; }
-        public string Cpf { get; private set; }
+        public Cpf Cpf { get; private set; }
         public bool Excluido { get; private set; }
         public Endereco Endereco { get; private set; }
 
         // EF Relation
         protected Cliente() { }
 
-        public Cliente(string nome, string email, string cpf)
+        public Cliente(string nome, string email, Cpf cpf)
         {
             Nome = nome;
             Email = email;
