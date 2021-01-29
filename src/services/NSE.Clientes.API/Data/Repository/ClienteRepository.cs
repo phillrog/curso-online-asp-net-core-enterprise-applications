@@ -1,4 +1,6 @@
-﻿using NSE.Clientes.API.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using NSE.Clientes.API.Models;
+using NSE.Core.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +11,7 @@ namespace NSE.Clientes.API.Data.Repository
     public class ClienteRepository : IClienteRepository
     {
         private readonly ClientesContext _context;
+        public IUnitOfWork UnitOfWork => _context;
 
         public ClienteRepository(ClientesContext context)
         {

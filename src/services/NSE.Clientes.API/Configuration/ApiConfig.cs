@@ -3,11 +3,14 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using NSE.Clientes.API.Data;
+using NSE.WebAPI.Core.Identidade;
+
 
 namespace NSE.Clientes.API.Configuration
 {
-	public static class ApiConfig
+    public static class ApiConfig
     {
         public static void AddApiConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
@@ -40,7 +43,7 @@ namespace NSE.Clientes.API.Configuration
 
             app.UseCors("Total");
 
-            app.UseAuthConfiguration();
+            app.UseJwtConfiguration();
 
             app.UseEndpoints(endpoints =>
             {

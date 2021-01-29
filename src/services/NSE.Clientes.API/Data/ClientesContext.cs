@@ -1,13 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NSE.Clientes.API.Models;
-using System;
-using System.Collections.Generic;
+using NSE.Core.Data;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace NSE.Clientes.API.Data
 {
-    public sealed class ClientesContext : DbContext
+	public sealed class ClientesContext : DbContext, IUnitOfWork
     {
 
         public ClientesContext(DbContextOptions<ClientesContext> options)
