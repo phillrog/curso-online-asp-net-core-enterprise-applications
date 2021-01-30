@@ -19,6 +19,12 @@ namespace NSE.Clientes.API.Application.Commands
 			Email = email;
 			Cpf = cpf;
 		}
+		public override bool EhValido()
+		{
+			ValidationResult = new RegistrarClienteValidation().Validate(this);
+
+			return ValidationResult.IsValid;
+		}
 	}
 
 	public class RegistrarClienteValidation : AbstractValidator<RegistrarClienteCommand>
@@ -28,6 +34,10 @@ namespace NSE.Clientes.API.Application.Commands
 			RuleFor(c => c.Id)
 				.NotEqual(Guid.Empty)
 				.WithMessage("Id do cliente inválido.");
+
+			RuleFor(c => c.Nome)
+				.NotEmpty()
+				.WithMessage("O nome do cliente não foi informado.");
 
 			RuleFor(c => c.Cpf)
 				.Must(TerCpfValido)
