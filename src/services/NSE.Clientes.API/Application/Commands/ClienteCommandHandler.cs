@@ -1,10 +1,20 @@
-﻿namespace NSE.Clientes.API.Application.Commands
+﻿using FluentValidation.Results;
+using MediatR;
+using NSE.Clientes.API.Models;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace NSE.Clientes.API.Application.Commands
 {
-	public class ClienteCommandHandler
+	public class ClienteCommandHandler : IRequestHandler<RegistrarClienteCommand, ValidationResult>
 	{
-		public void Manipular(RegistrarClienteCommand message)
-		{ 
-			
+		public async Task<ValidationResult> Handle(RegistrarClienteCommand message, CancellationToken cancellationToken)
+		{
+			if (!message.EhValido()) return message.ValidationResult;
+
+			var cliente = new Cliente(message.Id, message.Nome, message.Email, message.Cpf);
+
+			return message.ValidationResult;
 		}
 	}
 }
