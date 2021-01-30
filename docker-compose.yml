@@ -17,6 +17,12 @@ services:
       context: .
       dockerfile: src/services/NSE.Catalogo.API/Dockerfile     
 
+  nse.clientes.api:
+    image: ${DOCKER_REGISTRY-}nseclientesapi
+    build:
+      context: .
+      dockerfile: src/services/NSE.Clientes.API/Dockerfile    
+
   nse.webapp.mvc:
     image: ${DOCKER_REGISTRY-}nsewebappmvc
     build:

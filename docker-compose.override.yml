@@ -55,6 +55,24 @@ services:
         networks:
               - local
 
+    nse.clientes.api:
+        environment:
+              - ASPNETCORE_ENVIRONMENT=Development
+              - ASPNETCORE_URLS=https://+:5003;http://+:4003
+              - DOTNET_USE_POLLING_FILE_WATCHER=1
+        ports:
+              - "4003:4003"
+              - "5003:5003"
+        volumes:
+              - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+              - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+              - C:\Users\phill\.nuget\packages\:/root/.nuget/packages:ro
+              - ./vsdbg:/vsdbg:ro
+              - ${HOME}/.nuget/packages:/root/.nuget/packages:ro
+              - ${DOTNET_PATH}/sdk/NuGetFallbackFolder:/root/.nuget/fallbackpackages:ro
+        networks:
+              - local
+
     nse.webapp.mvc:
         environment:
               - ASPNETCORE_ENVIRONMENT=Development
