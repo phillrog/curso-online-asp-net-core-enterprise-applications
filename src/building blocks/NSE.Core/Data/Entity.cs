@@ -1,45 +1,73 @@
-﻿using System;
+﻿using NSE.Core.Messages;
+using System;
+using System.Collections.Generic;
 
 namespace NSE.Core.Data
 {
 	public abstract class Entity
 	{
 		public Guid Id { get; set; }
+		protected Entity()
+		{
+			Id = Guid.NewGuid();
+		}
 
-        public override bool Equals(object obj)
-        {
-            var compareTo = obj as Entity;
+		private List<Event> _notificacoes;
+		public IReadOnlyCollection<Event> Notificacoes => _notificacoes?.AsReadOnly();
 
-            if (ReferenceEquals(this, compareTo)) return true;
-            if (ReferenceEquals(null, compareTo)) return false;
+		public void AdicionarEvento(Event evento)
+		{
+			_notificacoes = _notificacoes ?? new List<Event>();
+			_notificacoes.Add(evento);
+		}
 
-            return Id.Equals(compareTo.Id);
-        }
+		public void RemoveEvento(Event evento)
+		{
+			_notificacoes?.Remove(evento);
+		}
 
-        public static bool operator ==(Entity a, Entity b)
-        {
-            if (ReferenceEquals(a, null) && ReferenceEquals(b, null))
-                return true;
+		public void LimparEventos()
+		{
+			_notificacoes?.Clear();
+		}
 
-            if (ReferenceEquals(a, null) || ReferenceEquals(b, null))
-                return false;
+		#region Comparações
 
-            return a.Equals(b);
-        }
+		public override bool Equals(object obj)
+		{
+			var compareTo = obj as Entity;
 
-        public static bool operator !=(Entity a, Entity b)
-        {
-            return !(a == b);
-        }
+			if (ReferenceEquals(this, compareTo)) return true;
+			if (ReferenceEquals(null, compareTo)) return false;
 
-        public override int GetHashCode()
-        {
-            return (GetType().GetHashCode() * 907) + Id.GetHashCode();
-        }
+			return Id.Equals(compareTo.Id);
+		}
 
-        public override string ToString()
-        {
-            return $"{GetType().Name} [Id={Id}]";
-        }
-    }
+		public static bool operator ==(Entity a, Entity b)
+		{
+			if (ReferenceEquals(a, null) && ReferenceEquals(b, null))
+				return true;
+
+			if (ReferenceEquals(a, null) || ReferenceEquals(b, null))
+				return false;
+
+			return a.Equals(b);
+		}
+
+		public static bool operator !=(Entity a, Entity b)
+		{
+			return !(a == b);
+		}
+
+		public override int GetHashCode()
+		{
+			return (GetType().GetHashCode() * 907) + Id.GetHashCode();
+		}
+
+		public override string ToString()
+		{
+			return $"{GetType().Name} [Id={Id}]";
+		}
+		#endregion
+	}
 }
