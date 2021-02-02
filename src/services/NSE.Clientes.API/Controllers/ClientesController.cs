@@ -27,6 +27,7 @@ namespace NSE.Clientes.API.Controllers
 				"082.573.287-58"
 				
 			));
+
 			return CustomResponse(resultado);
 		}
 	}
