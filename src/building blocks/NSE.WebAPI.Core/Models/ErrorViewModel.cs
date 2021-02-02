@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace NSE.WebApp.MVC.Models
+namespace NSE.WebAPI.Core.Models
 {
 	public class ErrorViewModel
 	{

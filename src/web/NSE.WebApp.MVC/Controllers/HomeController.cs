@@ -1,15 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using NSE.WebApp.MVC.Models;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+using NSE.WebAPI.Core.Controllers;
+using NSE.WebAPI.Core.Models;
 
 namespace NSE.WebApp.MVC.Controllers
 {
-    public class HomeController : MainController
+	public class HomeController : MainController
     {        
         [Route("sistema-indisponivel")]
         public IActionResult SistemaIndisponivel()

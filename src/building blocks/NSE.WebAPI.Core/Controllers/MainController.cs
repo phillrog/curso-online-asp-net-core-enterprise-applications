@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using NSE.WebAPI.Core.Models;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace NSE.Identidade.API.Controllers
+namespace NSE.WebAPI.Core.Controllers
 {
-	public abstract class MainController : ControllerBase
+	[ApiController]
+	public abstract class MainController : Controller
 	{
 		protected ICollection<string> Erros = new List<string>();
 
@@ -47,5 +49,19 @@ namespace NSE.Identidade.API.Controllers
 		{
 			Erros.Clear();
 		}
-	}
+		protected bool ResponsePossuiErros(ResponseResult resposta)
+        {
+            if (resposta != null && resposta.Errors.Mensagens.Any())
+            {
+                foreach (var mensagem in resposta.Errors.Mensagens)
+                {
+                    ModelState.AddModelError(string.Empty, mensagem);
+                }
+
+                return true;
+            }
+
+            return false;
+        }
+    }
 }
