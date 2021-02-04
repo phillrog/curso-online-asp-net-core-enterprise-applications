@@ -18,6 +18,27 @@ services:
         networks:
               - local
 
+    rabbitmq:
+        image: rabbitmq:management
+        hostname: rabbit-host
+        container_name: rabbit-nerdstore
+        ports:
+          - 5672:5672
+          - 15672:15672
+
+    portainer:
+        image: portainer/portainer
+        hostname: portainer-host
+        container_name: portainer-local
+        command: -H unix:///var/run/docker.sock
+        restart: always
+        ports:
+          - 9000:9000
+          - 8000:8000
+        volumes:
+          - /var/run/docker.sock:/var/run/docker.sock
+          - portainer_data:/data
+
     
     nse.identidade.api:
         environment:
@@ -93,3 +114,6 @@ services:
 networks:
     local:
         driver: bridge
+
+volumes:
+    portainer_data:

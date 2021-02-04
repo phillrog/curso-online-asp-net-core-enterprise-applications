@@ -5,6 +5,12 @@ services:
   sql.data:
     image: mcr.microsoft.com/mssql/server:2017-latest
 
+  rabbitmq:
+    image: rabbitmq:management
+
+  portainer:
+    image: portainer/portainer
+
   nse.identidade.api:
     image: ${DOCKER_REGISTRY-}nseidentidadeapi
     build:
