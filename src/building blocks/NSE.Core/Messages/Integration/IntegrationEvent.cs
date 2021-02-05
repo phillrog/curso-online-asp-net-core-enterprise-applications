@@ -4,9 +4,7 @@ using System.Text;
 
 namespace NSE.Core.Messages.Integration
 {
-	public class IntegrationEvent : Event
+	public abstract class IntegrationEvent : Event
 	{
-	}
-
-
+	}	
 }
