@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using EasyNetQ;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -22,12 +23,15 @@ namespace NSE.Identidade.API.Controllers
 		private readonly SignInManager<IdentityUser> _signInManager;
 		private readonly UserManager<IdentityUser> _userManager;
 		private readonly AppSettings _appSettings;
+		private IBus _bus;
 
-		public AuthController(SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager, IOptions<AppSettings> appSettings)
+		public AuthController(SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager, IOptions<AppSettings> appSettings,
+			IBus bus)
 		{
 			_signInManager = signInManager;
 			_userManager = userManager;
 			_appSettings = appSettings.Value;
+			_bus = bus;
 		}
 
 		[HttpPost("nova-conta")]
@@ -46,7 +50,8 @@ namespace NSE.Identidade.API.Controllers
 
 			if (result.Succeeded)
 			{
-				await _signInManager.SignInAsync(user, false);
+				var sucesso = await RegistrarCliente(usuarioRegistro);
+				//await _signInManager.SignInAsync(user, false);
 				return CustomResponse(await GerarJwt(usuarioRegistro.Email));
 			}
 
@@ -153,6 +158,13 @@ namespace NSE.Identidade.API.Controllers
 
 			var usuarioRegistrado = new UsuarioRegistradoIntegrationEvent(
 				Guid.Parse(usuario.Id), usuarioRegistro.Nome, usuarioRegistro.Email, usuarioRegistro.Cpf);
+
+			_bus = RabbitHutch.CreateBus("host=localhost5672");
+
+			var sucesso = await _bus.Rpc.RequestAsync<UsuarioRegistradoIntegrationEvent, ResponseMessage>(usuarioRegistrado);
+
+			return sucesso;
+			
 		}
 	}
 }
