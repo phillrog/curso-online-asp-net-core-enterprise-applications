@@ -1,17 +1,9 @@
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NSE.Identidade.API.Data;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.OpenApi.Models;
-using System;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using NSE.Identidade.API.Extensions;
 using NSE.Identidade.API.Configuration;
 
 namespace NSE.Identidade.API
@@ -43,10 +35,11 @@ namespace NSE.Identidade.API
 			services.AppSwaggerConfiguration();
 		}
 
-		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+		public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ApplicationDbContext applicationDbContext)
 		{
 			app.UseSwaggerConfiguration();		
 			app.UseApiConfiguration(env);
+			app.UseIdentityConfiguration(applicationDbContext);
 		}
 	}
 }

@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using NSE.Identidade.API.Data;
 using NSE.Identidade.API.Extensions;
 using NSE.WebAPI.Core.Identidade;
+using System;
 
 namespace NSE.Identidade.API.Configuration
 {
@@ -13,8 +14,15 @@ namespace NSE.Identidade.API.Configuration
 	{
 		public static IServiceCollection AddIdentityConfiguration(this IServiceCollection services, IConfiguration configuration)
 		{
+			var conn = "";
+
+			if (Environment.GetEnvironmentVariable("CONTAINER") == "true")
+				conn = configuration.GetConnectionString("Container");
+			else
+				conn = configuration.GetConnectionString("Localhost");
+
 			services.AddDbContext<ApplicationDbContext>(options =>
-			   options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+				options.UseSqlServer(conn));
 
 			services.AddDefaultIdentity<IdentityUser>()
 				.AddRoles<IdentityRole>()
@@ -25,6 +33,11 @@ namespace NSE.Identidade.API.Configuration
 			services.AddJwtConfiguration(configuration);
 
 			return services;
-		}		
+		}
+
+		public static void UseIdentityConfiguration(this IApplicationBuilder app, ApplicationDbContext  applicationDbContext)
+		{
+			applicationDbContext.Database.Migrate();
+		}
 	}
 }

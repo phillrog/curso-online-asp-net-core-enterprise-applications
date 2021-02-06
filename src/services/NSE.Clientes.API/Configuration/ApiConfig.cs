@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NSE.Clientes.API.Data;
 using NSE.WebAPI.Core.Identidade;
-
+using System;
 
 namespace NSE.Clientes.API.Configuration
 {
@@ -14,8 +14,15 @@ namespace NSE.Clientes.API.Configuration
     {
         public static void AddApiConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
+            var conn = "";
+
+            if (Environment.GetEnvironmentVariable("CONTAINER") == "true")
+                conn = configuration.GetConnectionString("Container");
+            else
+                conn = configuration.GetConnectionString("Localhost");
+
             services.AddDbContext<ClientesContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(conn, m => m.MigrationsAssembly("NSE.Clientes.API")));
 
             services.AddControllers();
 
@@ -30,12 +37,14 @@ namespace NSE.Clientes.API.Configuration
             });
         }
 
-        public static void UseApiConfiguration(this IApplicationBuilder app, IWebHostEnvironment env)
+        public static void UseApiConfiguration(this IApplicationBuilder app, IWebHostEnvironment env, ClientesContext clientesContext)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
+            
+            clientesContext.Database.Migrate();
 
             app.UseHttpsRedirection();
 

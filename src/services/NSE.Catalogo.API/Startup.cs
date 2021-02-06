@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using NSE.Catalogo.API.Configuration;
 using Microsoft.Extensions.Hosting;
 using NSE.WebAPI.Core.Identidade;
+using NSE.Catalogo.API.Data;
 
 namespace NSE.Catalogo.API
 {
@@ -41,10 +42,10 @@ namespace NSE.Catalogo.API
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+		public void Configure(IApplicationBuilder app, IWebHostEnvironment env, CatalogoContext catalogoContext)
 		{
 			app.UseSwaggerConfiguration();
-			app.UseApiConfiguration(env);
+			app.UseApiConfiguration(env, catalogoContext);
 		}
 	}
 }

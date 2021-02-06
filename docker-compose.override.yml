@@ -45,6 +45,7 @@ services:
               - ASPNETCORE_ENVIRONMENT=Development
               - ASPNETCORE_URLS=https://+:5001;http://+:4001
               - DOTNET_USE_POLLING_FILE_WATCHER=1
+              - CONTAINER=true
         ports:
               - "4001:4001"
               - "5001:5001"
@@ -63,6 +64,7 @@ services:
               - ASPNETCORE_ENVIRONMENT=Development
               - ASPNETCORE_URLS=https://+:5002;http://+:4002
               - DOTNET_USE_POLLING_FILE_WATCHER=1
+              - CONTAINER=true
         ports:
               - "4002:4002"
               - "5002:5002"
@@ -81,6 +83,7 @@ services:
               - ASPNETCORE_ENVIRONMENT=Development
               - ASPNETCORE_URLS=https://+:5003;http://+:4003
               - DOTNET_USE_POLLING_FILE_WATCHER=1
+              - CONTAINER=true
         ports:
               - "4003:4003"
               - "5003:5003"
@@ -99,6 +102,7 @@ services:
               - ASPNETCORE_ENVIRONMENT=Development
               - ASPNETCORE_URLS=https://+:443;http://+:80
               - DOTNET_USE_POLLING_FILE_WATCHER=1
+              - CONTAINER=true
         ports:
               - "4000:80"
               - "5000:443"
