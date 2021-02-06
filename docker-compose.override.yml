@@ -23,8 +23,16 @@ services:
         hostname: rabbit-host
         container_name: rabbit-nerdstore
         ports:
-          - 5672:5672
-          - 15672:15672
+              - 5672:5672
+              - 15672:15672
+        networks:
+              - local
+        healthcheck:
+              test: ["CMD", "curl", "-f", "http://localhost:15672"]
+              interval: 30s
+              timeout: 10s
+              retries: 5
+
 
     portainer:
         image: portainer/portainer
@@ -41,11 +49,16 @@ services:
 
     
     nse.identidade.api:
+        restart: on-failure
+        container_name: nse.identidade.api
         environment:
               - ASPNETCORE_ENVIRONMENT=Development
               - ASPNETCORE_URLS=https://+:5001;http://+:4001
               - DOTNET_USE_POLLING_FILE_WATCHER=1
               - CONTAINER=true
+        depends_on:
+              - sql.data
+              - rabbitmq
         ports:
               - "4001:4001"
               - "5001:5001"
@@ -56,15 +69,20 @@ services:
               - ./vsdbg:/vsdbg:ro
               - ${HOME}/.nuget/packages:/root/.nuget/packages:ro
               - ${DOTNET_PATH}/sdk/NuGetFallbackFolder:/root/.nuget/fallbackpackages:ro
+        
         networks:
               - local
 
+
     nse.catalogo.api:
+        restart: on-failure
         environment:
               - ASPNETCORE_ENVIRONMENT=Development
               - ASPNETCORE_URLS=https://+:5002;http://+:4002
               - DOTNET_USE_POLLING_FILE_WATCHER=1
               - CONTAINER=true
+        depends_on:
+              - nse.identidade.api
         ports:
               - "4002:4002"
               - "5002:5002"
@@ -79,11 +97,14 @@ services:
               - local
 
     nse.clientes.api:
+        restart: on-failure
         environment:
               - ASPNETCORE_ENVIRONMENT=Development
               - ASPNETCORE_URLS=https://+:5003;http://+:4003
               - DOTNET_USE_POLLING_FILE_WATCHER=1
               - CONTAINER=true
+        depends_on:
+              - nse.identidade.api
         ports:
               - "4003:4003"
               - "5003:5003"
@@ -98,11 +119,14 @@ services:
               - local
 
     nse.webapp.mvc:
+        restart: on-failure
         environment:
               - ASPNETCORE_ENVIRONMENT=Development
               - ASPNETCORE_URLS=https://+:443;http://+:80
               - DOTNET_USE_POLLING_FILE_WATCHER=1
               - CONTAINER=true
+        depends_on:
+              - nse.identidade.api
         ports:
               - "4000:80"
               - "5000:443"
@@ -115,6 +139,7 @@ services:
               - ${DOTNET_PATH}/sdk/NuGetFallbackFolder:/root/.nuget/fallbackpackages:ro  
         networks:
               - local
+
 networks:
     local:
         driver: bridge
