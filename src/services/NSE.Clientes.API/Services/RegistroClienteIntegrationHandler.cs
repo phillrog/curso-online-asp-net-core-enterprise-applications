@@ -1,4 +1,5 @@
-﻿using FluentValidation.Results;
+﻿using EasyNetQ;
+using FluentValidation.Results;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NSE.Clientes.API.Application.Commands;
@@ -28,10 +29,24 @@ namespace NSE.Clientes.API.Services
 			_bus = messageBus;
 		}
 
-		protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+		protected override Task ExecuteAsync(CancellationToken stoppingToken)
 		{
-			await _bus.RespondAsync<UsuarioRegistradoIntegrationEvent, ResponseMessage>(async request =>
+			SetResponder();
+
+			return Task.CompletedTask;
+		}
+
+		private void SetResponder()
+		{
+			 _bus.RespondAsync<UsuarioRegistradoIntegrationEvent, ResponseMessage>(async request =>
 				await RegistrarCliente(request));
+
+			_bus.AdvancedBus.Connected += OnConnect;
+		}
+
+		private void OnConnect(object sender, ConnectedEventArgs e)
+		{
+			SetResponder();
 		}
 
 		public async Task<ResponseMessage> RegistrarCliente(UsuarioRegistradoIntegrationEvent message)
