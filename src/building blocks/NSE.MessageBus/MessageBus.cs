@@ -17,7 +17,7 @@ namespace NSE.MessageBus
 	
 		public MessageBus(string connectionString)
 		{
-			_connectionString = _connectionString;
+			_connectionString = connectionString;
 		}
 
 		public void Publish<T>(T message) where T : IntegrationEvent
