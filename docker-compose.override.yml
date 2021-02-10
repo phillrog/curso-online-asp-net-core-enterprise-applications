@@ -118,6 +118,28 @@ services:
         networks:
               - local
 
+    nse.carrinho.api:
+        restart: on-failure
+        environment:
+              - ASPNETCORE_ENVIRONMENT=Development
+              - ASPNETCORE_URLS=https://+:5004;http://+:4004
+              - DOTNET_USE_POLLING_FILE_WATCHER=1
+              - CONTAINER=true
+        depends_on:
+              - nse.identidade.api
+        ports:
+              - "4004:4004"
+              - "5004:5004"
+        volumes:
+              - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+              - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+              - C:\Users\phill\.nuget\packages\:/root/.nuget/packages:ro
+              - ./vsdbg:/vsdbg:ro
+              - ${HOME}/.nuget/packages:/root/.nuget/packages:ro
+              - ${DOTNET_PATH}/sdk/NuGetFallbackFolder:/root/.nuget/fallbackpackages:ro
+        networks:
+              - local
+
     nse.webapp.mvc:
         restart: on-failure
         environment:

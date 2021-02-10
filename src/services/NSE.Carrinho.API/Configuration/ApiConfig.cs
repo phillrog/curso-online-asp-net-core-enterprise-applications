@@ -30,14 +30,12 @@ namespace NSE.Carrinho.API.Configuration
 
 		}
 
-		public static void UseApiConfiguration(this IApplicationBuilder app, IWebHostEnvironment env, CatalogoContext catalogoContext)
+		public static void UseApiConfiguration(this IApplicationBuilder app, IWebHostEnvironment env)
 		{
 			if (env.IsDevelopment())
 			{
 				app.UseDeveloperExceptionPage();
-			}
-
-			catalogoContext.Database.Migrate();
+			}			
 
 			//app.UseHttpsRedirection();
 

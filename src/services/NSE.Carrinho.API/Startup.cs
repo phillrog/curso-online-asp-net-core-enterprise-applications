@@ -45,7 +45,7 @@ namespace NSE.Carrinho.API
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 		{
 			app.UseSwaggerConfiguration();
-			//app.UseApiConfiguration(env, carrinhoContext);
+			app.UseApiConfiguration(env);
 		}
 	}
 }
