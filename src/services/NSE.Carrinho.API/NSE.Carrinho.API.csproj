@@ -22,9 +22,5 @@
     <ProjectReference Include="..\..\building blocks\NSE.WebAPI.Core\NSE.WebAPI.Core.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Data\" />
-  </ItemGroup>
-
 
 </Project>
