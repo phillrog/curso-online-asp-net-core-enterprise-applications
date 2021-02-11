@@ -1,6 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Identity
-@using NSE.WebApp.MVC.Extensions
-@inject IUser AppUser
+@using NSE.WebAPI.Core.Usuario
+@inject IAspNetUser AppUser
 
 @if (AppUser.EstaAutenticado())
 {
