@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using NSE.Carrinho.API.Data;
 using NSE.WebAPI.Core.Identidade;
 using System;
 
@@ -20,6 +21,9 @@ namespace NSE.Carrinho.API.Configuration
 			else
 				conn = configuration.GetConnectionString("Localhost");
 
+			services.AddDbContext<CarrinhoContext>(options =>
+				options.UseSqlServer(conn, m => m.MigrationsAssembly("NSE.Carrinho.API")));
+
 			services.AddControllers();
 
 			services.AddCors(options => options.AddPolicy("Total", builder =>
@@ -30,12 +34,14 @@ namespace NSE.Carrinho.API.Configuration
 
 		}
 
-		public static void UseApiConfiguration(this IApplicationBuilder app, IWebHostEnvironment env)
+		public static void UseApiConfiguration(this IApplicationBuilder app, IWebHostEnvironment env, CarrinhoContext carrinhoContexto)
 		{
 			if (env.IsDevelopment())
 			{
 				app.UseDeveloperExceptionPage();
-			}			
+			}
+
+			carrinhoContexto.Database.Migrate();
 
 			//app.UseHttpsRedirection();
 

@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NSE.Carrinho.API.Configuration;
+using NSE.Carrinho.API.Data;
 using NSE.WebAPI.Core.Identidade;
 
 namespace NSE.Carrinho.API
@@ -42,10 +43,10 @@ namespace NSE.Carrinho.API
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+		public void Configure(IApplicationBuilder app, IWebHostEnvironment env, CarrinhoContext carrinhoContext)
 		{
 			app.UseSwaggerConfiguration();
-			app.UseApiConfiguration(env);
+			app.UseApiConfiguration(env, carrinhoContext);
 		}
 	}
 }
