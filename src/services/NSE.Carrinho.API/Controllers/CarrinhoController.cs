@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NSE.Carrinho.API.Models;
 using NSE.WebAPI.Core.Controllers;
+using NSE.WebAPI.Core.Usuario;
 using System;
 using System.Threading.Tasks;
 
@@ -13,12 +14,13 @@ namespace NSE.Carrinho.API.Controllers
 	[Authorize]
 	public class CarrinhoController : MainController
 	{
-		private readonly IHttpContextAccessor _contextAccessor;
+		private readonly IAspNetUser _user;
 
-		public CarrinhoController(IHttpContextAccessor contextAccessor)
+		public CarrinhoController(IAspNetUser user)
 		{
-			_contextAccessor = contextAccessor;
+			_user = user;
 		}
+
 		[HttpGet("healthcheck")]
 		public IActionResult Get()
 		{
@@ -28,6 +30,7 @@ namespace NSE.Carrinho.API.Controllers
 		[HttpGet()]
 		public async Task<CarrinhoCliente> ObterCarrinho()
 		{
+			_user.ObterUserId();
 			return null;
 		}
 
