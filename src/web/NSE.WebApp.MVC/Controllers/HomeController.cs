@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using NSE.WebAPI.Core.Controllers;
 using NSE.WebAPI.Core.Models;
 
 namespace NSE.WebApp.MVC.Controllers

@@ -73,6 +73,6 @@ namespace NSE.WebAPI.Core.Controllers
             }
 
             return false;
-        }
-    }
+        }		
+	}
 }
