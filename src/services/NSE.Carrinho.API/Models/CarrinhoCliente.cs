@@ -52,5 +52,34 @@ namespace NSE.Carrinho.API.Models
 			Itens.Add(item);
 			CalcularValorTotalCarrinho();
 		}
+
+		internal void AtualizarItem(CarrinhoItem item)
+		{
+			item.AssociarCarrinho(Id);
+
+			var itemExistente = ObterPorProdutoId(item.ProdutoId);
+
+			Itens.Remove(itemExistente);
+			Itens.Add(item);
+
+			CalcularValorCarrinho();
+		}
+
+		internal void AtualizarUnidades(CarrinhoItem item, int unidades)
+		{
+			item.AtualizarUnidades(unidades);
+			AtualizarItem(item);
+		}
+
+		internal void CalcularValorCarrinho()
+		{
+			ValorTotal = Itens.Sum(p => p.CalcularValor());
+		}
+
+		internal void RemoverItem(CarrinhoItem item)
+		{
+			Itens.Remove(ObterPorProdutoId(item.ProdutoId));
+			CalcularValorCarrinho();
+		}
 	}
 }
