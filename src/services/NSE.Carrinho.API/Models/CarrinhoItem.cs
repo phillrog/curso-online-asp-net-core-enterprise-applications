@@ -35,7 +35,7 @@ namespace NSE.Carrinho.API.Models
 
 		internal bool EhValido()
 		{
-			return new ItemPedidoValidation().Validate(this).IsValid;
+			return new ItemCarrinhoValidation().Validate(this).IsValid;
 		}
 
 		internal void AtualizarUnidades(int unidades)
@@ -44,9 +44,9 @@ namespace NSE.Carrinho.API.Models
 		}
 
 
-		public class ItemPedidoValidation : AbstractValidator<CarrinhoItem>
+		public class ItemCarrinhoValidation : AbstractValidator<CarrinhoItem>
 		{
-			public ItemPedidoValidation()
+			public ItemCarrinhoValidation()
 			{
 				RuleFor(c => c.ProdutoId)
 					.NotEqual(Guid.Empty)
