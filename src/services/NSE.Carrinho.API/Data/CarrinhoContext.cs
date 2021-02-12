@@ -16,8 +16,8 @@ namespace NSE.Carrinho.API.Data
 			ChangeTracker.AutoDetectChangesEnabled = false;
 		}
 
-		DbSet<CarrinhoItem> CarrinhoItens { get; set; }
-		DbSet<CarrinhoCliente> CarrinhoClientes { get; set; }
+		public DbSet<CarrinhoItem> CarrinhoItens { get; set; }
+		public DbSet<CarrinhoCliente> CarrinhoClientes { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
