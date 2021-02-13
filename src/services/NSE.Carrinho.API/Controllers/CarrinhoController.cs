@@ -105,6 +105,7 @@ namespace NSE.Carrinho.API.Controllers
 			var carrinho = new CarrinhoCliente(_user.ObterUserId());
 
 			carrinho.AdicionarItem(item);
+			ValidarCarrinho(carrinho);
 
 			_context.CarrinhoCliente.Add(carrinho);
 		}
@@ -114,6 +115,8 @@ namespace NSE.Carrinho.API.Controllers
 			var produtoItemExistente = carrinho.CarrinhoItemExistente(item);
 
 			carrinho.AdicionarItem(item);
+			
+			ValidarCarrinho(carrinho);
 
 			if (produtoItemExistente)
 			{
@@ -122,7 +125,6 @@ namespace NSE.Carrinho.API.Controllers
 			else {
 				_context.CarrinhoItens.Add(item);
 			}
-
 			_context.CarrinhoCliente.Update(carrinho);
 		}
 
