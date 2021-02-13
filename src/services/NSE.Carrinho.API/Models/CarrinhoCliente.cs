@@ -13,7 +13,7 @@ namespace NSE.Carrinho.API.Models
 		public Guid ClienteId { get; set; }
 		public decimal ValorTotal { get; set; }
 		public List<CarrinhoItem> Itens { get; set; } = new List<CarrinhoItem>();
-		public ValidationResult ValidationResult { get; set; }
+		public ValidationResult ValidationResult { get; protected set; }
 
 		public CarrinhoCliente(Guid clienteId)
 		{
