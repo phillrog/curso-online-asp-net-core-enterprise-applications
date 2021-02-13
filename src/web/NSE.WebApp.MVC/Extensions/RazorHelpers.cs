@@ -32,5 +32,17 @@ namespace NSE.WebApp.MVC.Extensions
         {
             return quantidade > 0 ? $"Apenas {quantidade} em estoque!" : "Produto esgotado!";
         }
+
+        public static string UnidadesPorProduto(this RazorPage page, int unidades)
+        {
+            return unidades > 1 ? $"{unidades} unidades" : $"{unidades} unidade";
+        }
+
+        public static string SelectOptionsPorQuantidade(this RazorPage page, int quantidade, int valorSelecionado = 0)
+        {
+            var sb = new StringBuilder();
+            Enumerable.Range(1, 10).ToList().Select(i => sb.Append($"<option {(i == valorSelecionado ? "selected" : string.Empty)} value='{i}'>{i}</option>"));            
+            return sb.ToString();
+        }
     }
 }
