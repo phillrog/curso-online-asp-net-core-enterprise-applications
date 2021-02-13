@@ -79,12 +79,12 @@ namespace NSE.Carrinho.API.Controllers
 			var carrinho = await ObterCarrinhoCliente();
 
 			var itemCarrinho = await ObterItemCarrinhoValidado(produtoId, carrinho);
-			if (itemCarrinho == null) return CustomResponse();
-
-			carrinho.RemoverItem(itemCarrinho);
+			if (itemCarrinho == null) return CustomResponse();			
 
 			ValidarCarrinho(carrinho);
 			if (!OperacaoValida()) return CustomResponse();
+
+			carrinho.RemoverItem(itemCarrinho);
 
 			_context.CarrinhoItens.Remove(itemCarrinho);
 			_context.CarrinhoCliente.Update(carrinho);
