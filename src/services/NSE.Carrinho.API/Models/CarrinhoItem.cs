@@ -61,7 +61,7 @@ namespace NSE.Carrinho.API.Models
 					.WithMessage("A quantidade miníma de um item é 1");
 
 				RuleFor(c => c.Quantidade)
-					.LessThan(CarrinhoCliente.MAX_QUANTIDADE_ITEM)
+					.LessThanOrEqualTo(CarrinhoCliente.MAX_QUANTIDADE_ITEM)
 					.WithMessage($"A quantidade máxima de um item é {CarrinhoCliente.MAX_QUANTIDADE_ITEM}");
 
 				RuleFor(c => c.Valor)
