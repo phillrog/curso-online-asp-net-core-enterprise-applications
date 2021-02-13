@@ -161,6 +161,26 @@ services:
         networks:
               - local
 
+
+    nse.cliente.bff:
+        restart: on-failure
+        environment:
+              - ASPNETCORE_ENVIRONMENT=Development
+              - ASPNETCORE_URLS=https://+:7000;http://+:6000
+              - DOTNET_USE_POLLING_FILE_WATCHER=1
+        ports:
+              - "6000:6000"
+              - "7000:7000"
+        volumes:
+              - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+              - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+              - C:\Users\phill\.nuget\packages\:/root/.nuget/packages:ro
+              - ./vsdbg:/vsdbg:ro
+              - ${HOME}/.nuget/packages:/root/.nuget/packages:ro
+              - ${DOTNET_PATH}/sdk/NuGetFallbackFolder:/root/.nuget/fallbackpackages:ro
+        networks:
+              - local
+
 networks:
     local:
         driver: bridge

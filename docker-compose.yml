@@ -40,3 +40,9 @@ services:
     build:
       context: .
       dockerfile: src/web/NSE.WebApp.MVC/Dockerfile     
+
+  nse.cliente.bff:
+    image: ${DOCKER_REGISTRY-}nseclientebff
+    build:
+      context: .
+      dockerfile: src/gateways/NSE.Cliente.BFF/Dockerfile     

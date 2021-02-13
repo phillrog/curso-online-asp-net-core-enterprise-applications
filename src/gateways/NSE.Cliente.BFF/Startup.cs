@@ -18,6 +18,7 @@ namespace NSE.Cliente.BFF
 				.SetBasePath(hostEnvironment.ContentRootPath)
 				.AddJsonFile("appsettings.json", true, true)
 				.AddJsonFile($"appsettings.{hostEnvironment.EnvironmentName}.json", true, true)
+				.AddJsonFile("ocelot.json", false, true)
 				.AddEnvironmentVariables();
 
 			if (hostEnvironment.IsDevelopment())
@@ -31,7 +32,7 @@ namespace NSE.Cliente.BFF
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddOcelot(Configuration);
+			services.AddOcelot();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,6 +42,13 @@ namespace NSE.Cliente.BFF
 			{
 				app.UseDeveloperExceptionPage();
 			}
+
+			app.UseRouting();
+
+			app.UseEndpoints(endpoints =>
+			{
+				endpoints.MapControllers();
+			});
 
 			app.UseOcelot().Wait();
 		}

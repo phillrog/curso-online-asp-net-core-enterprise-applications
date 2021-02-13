@@ -1,0 +1,19 @@
+{
+	"Routes": [
+		{
+			"DownstreamPathTemplate": "api/identidade/nova-conta",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "nse.identidade.api",
+					"Port": 4001
+				}
+			],
+			"UpstreamPathTemplate": "/registrar",
+			"UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete", "Options" ]
+		}
+	],
+	"GlobalConfiguration": {
+		
+	}
+}

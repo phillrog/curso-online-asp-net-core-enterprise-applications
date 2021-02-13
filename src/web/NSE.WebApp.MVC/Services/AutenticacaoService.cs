@@ -22,7 +22,7 @@ namespace NSE.WebApp.MVC.Services
 		public async Task<UsuarioRespostaLogin> Login(UsuarioLogin usuarioLogin)
 		{
 			var loginContent = ObterConteudo(usuarioLogin);
-			var response = await _httpClient.PostAsync("identidade/autenticar", loginContent);
+			var response = await _httpClient.PostAsync("logar", loginContent);
 
 			var options = new JsonSerializerOptions
 			{
@@ -42,7 +42,7 @@ namespace NSE.WebApp.MVC.Services
 		public async Task<UsuarioRespostaLogin> Registro(UsuarioRegistro usuarioRegistro)
 		{
 			var registroContent = ObterConteudo(usuarioRegistro);
-			var response = await _httpClient.PostAsync("identidade/nova-conta", registroContent);
+			var response = await _httpClient.PostAsync("registrar", registroContent);
 
 			var options = new JsonSerializerOptions
 			{
