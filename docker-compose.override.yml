@@ -50,7 +50,6 @@ services:
     
     nse.identidade.api:
         restart: on-failure
-        container_name: nse.identidade.api
         environment:
               - ASPNETCORE_ENVIRONMENT=Development
               - ASPNETCORE_URLS=https://+:5001;http://+:4001
@@ -144,14 +143,14 @@ services:
         restart: on-failure
         environment:
               - ASPNETCORE_ENVIRONMENT=Development
-              - ASPNETCORE_URLS=https://+:443;http://+:80
+              - ASPNETCORE_URLS=https://+:5000;http://+:4000
               - DOTNET_USE_POLLING_FILE_WATCHER=1
               - CONTAINER=true
         depends_on:
               - nse.identidade.api
         ports:
-              - "4000:80"
-              - "5000:443"
+              - "4000:4000"
+              - "5000:5000"
         volumes:
               - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
               - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
