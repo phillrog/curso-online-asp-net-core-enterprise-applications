@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using System;
 
-namespace NSE.Carrinho.API.Configuration
+namespace NSE.Bff.Compras.Configuration
 {
 	public static class SwaggerConfig
 	{
