@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace NSE.Bff.Compras.Models
 {
-    public class ItemProdutoDTO
+	public class ItemProdutoDTO
     {
         public Guid Id { get; set; }
         public string Nome { get; set; }
