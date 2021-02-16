@@ -39,9 +39,20 @@ namespace NSE.Bff.Compras.Controllers
 
         [HttpPost]
         [Route("compras/carrinho/items")]
-        public async Task<IActionResult> AdicionarItemCarrinho()
+        public async Task<IActionResult> AdicionarItemCarrinho(ItemCarrinhoDTO itemProduto)
         {
-            return CustomResponse();
+            var produto = await _catalogoService.ObterPorId(itemProduto.ProdutoId);
+
+            await ValidarItemCarrinho(produto, itemProduto.Quantidade, true);
+            if (!OperacaoValida()) return CustomResponse();
+
+            itemProduto.Nome = produto.Nome;
+            itemProduto.Valor = produto.Valor;
+            itemProduto.Imagem = produto.Imagem;
+
+            var resposta = await _carrinhoService.AdicionarItemCarrinho(itemProduto);
+
+            return CustomResponse(resposta);
         }
 
         [HttpPut]
