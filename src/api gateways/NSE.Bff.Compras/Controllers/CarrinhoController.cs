@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NSE.Bff.Compras.Services;
@@ -29,9 +30,10 @@ namespace NSE.Bff.Compras.Controllers
 
         [HttpGet]
         [Route("compras/carrinho-quantidade")]
-        public async Task<IActionResult> ObterQuantidadeCarrinho()
+        public async Task<int> ObterQuantidadeCarrinho()
         {
-            return CustomResponse();
+            var quantidade = await _carrinhoService.ObterCarrinho();
+            return quantidade?.Itens.Sum(i => i.Quantidade) ?? 0;
         }
 
         [HttpPost]
