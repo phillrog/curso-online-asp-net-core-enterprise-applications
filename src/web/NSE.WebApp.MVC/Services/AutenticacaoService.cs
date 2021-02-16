@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.Options;
-using NSE.WebAPI.Core.Models;
+using NSE.Core.Communication;
 using NSE.WebApp.MVC.Extensions;
 using NSE.WebApp.MVC.Models;
 using System;

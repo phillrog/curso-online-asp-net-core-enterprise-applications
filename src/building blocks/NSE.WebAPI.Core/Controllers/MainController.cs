@@ -1,7 +1,7 @@
 ﻿using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using NSE.WebAPI.Core.Models;
+using NSE.Core.Communication;
 using System.Collections.Generic;
 using System.Linq;
 

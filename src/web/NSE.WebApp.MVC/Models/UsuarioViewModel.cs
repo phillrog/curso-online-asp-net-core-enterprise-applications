@@ -1,4 +1,4 @@
-﻿using NSE.WebAPI.Core.Models;
+﻿using NSE.Core.Communication;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
