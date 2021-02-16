@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using NSE.Bff.Compras.Models;
 using NSE.Bff.Compras.Services;
 using NSE.WebAPI.Core.Controllers;
 
@@ -55,6 +56,25 @@ namespace NSE.Bff.Compras.Controllers
         public async Task<IActionResult> RemoverItemCarrinho()
         {
             return CustomResponse();
+        }
+
+        private async Task ValidarItemCarrinho(ItemProdutoDTO produto, int quantidade, bool adicionarProduto = false)
+        {
+            if (produto == null) AdicionarErroProcessamento("Produto inexistente!");
+            if (quantidade < 1) AdicionarErroProcessamento($"Escolha ao menos uma unidade do produto {produto.Nome}");
+
+            var carrinho = await _carrinhoService.ObterCarrinho();
+            var itemCarrinho = carrinho.Itens.FirstOrDefault(p => p.ProdutoId == produto.Id);
+
+            if ((itemCarrinho != null) && 
+                (adicionarProduto) && 
+                (itemCarrinho.Quantidade + quantidade > produto.QuantidadeEstoque))
+            {
+                AdicionarErroProcessamento($"O produto {produto.Nome} possui {produto.QuantidadeEstoque} unidades em estoque, você selecionou {quantidade}");
+                return;
+            }
+
+            if (quantidade > produto.QuantidadeEstoque) AdicionarErroProcessamento($"O produto {produto.Nome} possui {produto.QuantidadeEstoque} unidades em estoque, você selecionou {quantidade}");
         }
     }
 }
