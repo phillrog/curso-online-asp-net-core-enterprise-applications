@@ -11,8 +11,8 @@ namespace NSE.WebApp.MVC.Services
 	public interface IComprasBffService
 	{
 		Task<CarrinhoViewModel> ObterCarrinho();
-		Task<ResponseResult> AdicionarItemCarrinho(ItemProdutoViewModel produto);
-		Task<ResponseResult> AtualizarItemCarrinho(Guid produtoId, ItemProdutoViewModel produto);
+		Task<ResponseResult> AdicionarItemCarrinho(ItemCarrinhoViewModel produto);
+		Task<ResponseResult> AtualizarItemCarrinho(Guid produtoId, ItemCarrinhoViewModel produto);
 		Task<ResponseResult> RemoverItemCarrinho(Guid produtoId);
 	}
 	public class ComprasBffService : Service, IComprasBffService
@@ -34,7 +34,7 @@ namespace NSE.WebApp.MVC.Services
 			return await DeserializarObjetoResponse<CarrinhoViewModel>(response);
 		}
 
-		public async Task<ResponseResult> AdicionarItemCarrinho(ItemProdutoViewModel produto)
+		public async Task<ResponseResult> AdicionarItemCarrinho(ItemCarrinhoViewModel produto)
 		{
 			var itemContent = ObterConteudo(produto);
 
@@ -45,7 +45,7 @@ namespace NSE.WebApp.MVC.Services
 			return RetornoOk();
 		}
 
-		public async Task<ResponseResult> AtualizarItemCarrinho(Guid produtoId, ItemProdutoViewModel produto)
+		public async Task<ResponseResult> AtualizarItemCarrinho(Guid produtoId, ItemCarrinhoViewModel produto)
 		{
 			var itemContent = ObterConteudo(produto);
 
