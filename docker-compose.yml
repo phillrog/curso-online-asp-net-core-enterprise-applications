@@ -35,6 +35,12 @@ services:
       context: .
       dockerfile: src/services/NSE.Carrinho.API/Dockerfile    
 
+  nse.pedido.api:
+    image: ${DOCKER_REGISTRY-}nsepedidoapi
+    build:
+      context: .
+      dockerfile: src/services/NSE.Pedido.API/Dockerfile    
+
   nse.bff.compras:
     image: ${DOCKER_REGISTRY-}nsebffcompras
     build:

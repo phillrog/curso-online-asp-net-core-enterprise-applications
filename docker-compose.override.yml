@@ -139,6 +139,28 @@ services:
         networks:
               - local
 
+    nse.pedido.api:
+        restart: on-failure
+        environment:
+              - ASPNETCORE_ENVIRONMENT=Development
+              - ASPNETCORE_URLS=https://+:5005;http://+:4005
+              - DOTNET_USE_POLLING_FILE_WATCHER=1
+              - CONTAINER=true
+        depends_on:
+              - nse.identidade.api
+        ports:
+              - "4005:4005"
+              - "5005:5005"
+        volumes:
+              - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+              - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+              - C:\Users\phill\.nuget\packages\:/root/.nuget/packages:ro
+              - ./vsdbg:/vsdbg:ro
+              - ${HOME}/.nuget/packages:/root/.nuget/packages:ro
+              - ${DOTNET_PATH}/sdk/NuGetFallbackFolder:/root/.nuget/fallbackpackages:ro
+        networks:
+              - local
+
     nse.bff.compras:
         restart: on-failure
         environment:
