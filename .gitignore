@@ -31,3 +31,5 @@
 /src/api gateways/NSE.Bff.Compras/bin/Debug/netcoreapp3.1
 /src/services/NSE.Pedidos.Domain/bin/Debug/netcoreapp3.1
 /src/services/NSE.Pedidos.Domain/obj
+/src/services/NSE.Pedidos.Infra/bin/Debug/netcoreapp3.1
+/src/services/NSE.Pedidos.Infra/obj
