@@ -10,10 +10,10 @@ namespace NSE.WebApp.MVC.Controllers
 	[Authorize]
 	public class CarrinhoController : MainController
 	{
-        private readonly ICarrinhoService _carrinhoService;
+        private readonly IComprasBffService _carrinhoService;
         private readonly ICatalogoService _catalogoService;
 
-        public CarrinhoController(ICarrinhoService carrinhoService,
+        public CarrinhoController(IComprasBffService carrinhoService,
                                   ICatalogoService catalogoService)
         {
             _carrinhoService = carrinhoService;
