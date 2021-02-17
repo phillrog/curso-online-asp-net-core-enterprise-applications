@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
@@ -8,7 +7,7 @@ using NSE.Bff.Compras.Models;
 
 namespace NSE.Bff.Compras.Services
 {
-    public interface ICatalogoService
+	public interface ICatalogoService
     {
         Task<ItemProdutoDTO> ObterPorId(Guid id);
     }
@@ -25,7 +24,7 @@ namespace NSE.Bff.Compras.Services
 
         public async Task<ItemProdutoDTO> ObterPorId(Guid id)
         {
-            var response = await _httpClient.GetAsync($"/catalogo/produtos/{id}");
+            var response = await _httpClient.GetAsync($"/api/catalogo/produtos/{id}");
 
             TratarErrosResponse(response);
 
