@@ -19,7 +19,7 @@ namespace NSE.Pedidos.Infra.Data
             _mediatorHandler = mediatorHandler;
         }
 
-        DbSet<Voucher> Vouchers { get; set; }
+        public DbSet<Voucher> Vouchers { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             foreach (var property in modelBuilder.Model.GetEntityTypes().SelectMany(
