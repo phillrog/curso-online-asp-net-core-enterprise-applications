@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NSE.Carrinho.API.Data;
+using NSE.Carrinho.API.Model;
 using NSE.Carrinho.API.Models;
 using NSE.WebAPI.Core.Controllers;
 using NSE.WebAPI.Core.Usuario;
@@ -166,6 +167,20 @@ namespace NSE.Carrinho.API.Controllers
 
 			carrinho.ValidationResult.Errors.ToList().ForEach(e => AdicionarErroProcessamento(e.ErrorMessage));
 			return false;
+		}
+
+		[HttpPost]
+		[Route("aplicar-voucher")]
+		public async Task<IActionResult> AplicarVoucher(Voucher voucher)
+		{
+			var carrinho = await ObterCarrinhoCliente();
+
+			carrinho.AplicarVoucher(voucher);
+
+			_context.CarrinhoCliente.Update(carrinho);
+
+			await PersistirDados();
+			return CustomResponse();
 		}
 	}
 }
