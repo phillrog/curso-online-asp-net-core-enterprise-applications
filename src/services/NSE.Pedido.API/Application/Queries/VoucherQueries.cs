@@ -22,7 +22,9 @@ namespace NSE.Pedido.API.Application.Queries
 		{
 			var voucher = await _voucherRepository.ObterVoucherPorCodigo(codigo);
 
-			if (voucher == null) return null;			
+			if (voucher == null) return null;
+
+			if (!voucher.EstaValidoParaUtilizacao()) return null;
 
 			return new VoucherDTO
 			{
