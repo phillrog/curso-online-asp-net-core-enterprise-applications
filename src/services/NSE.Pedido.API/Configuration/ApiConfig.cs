@@ -22,7 +22,7 @@ namespace NSE.Pedidos.API.Configuration
                 conn = configuration.GetConnectionString("Localhost");
 
             services.AddDbContext<PedidosContext>(options =>
-                options.UseSqlServer(conn, m => m.MigrationsAssembly("NSE.Pedidos.Infra.Data")));
+                options.UseSqlServer(conn, m => m.MigrationsAssembly("NSE.Pedidos.Infra")));
 
             services.AddControllers();
 
@@ -37,12 +37,14 @@ namespace NSE.Pedidos.API.Configuration
             });
         }
 
-        public static void UseApiConfiguration(this IApplicationBuilder app, IWebHostEnvironment env)
+        public static void UseApiConfiguration(this IApplicationBuilder app, IWebHostEnvironment env, PedidosContext pedidosContext)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            pedidosContext.Database.Migrate();
 
             //app.UseHttpsRedirection();
 
