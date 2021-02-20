@@ -60,7 +60,7 @@ namespace NSE.Carrinho.API.Models
 			}
 
 			Itens.Add(item);
-			CalcularValorTotalCarrinho();
+			CalcularValorCarrinho();
 		}
 
 		internal void AtualizarItem(CarrinhoItem item)
@@ -84,6 +84,7 @@ namespace NSE.Carrinho.API.Models
 		internal void CalcularValorCarrinho()
 		{
 			ValorTotal = Itens.Sum(p => p.CalcularValor());
+			CalcularValorTotalDesconto();
 		}
 
 		internal void RemoverItem(CarrinhoItem item)
