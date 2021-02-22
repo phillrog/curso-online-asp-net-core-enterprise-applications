@@ -35,6 +35,9 @@ namespace NSE.Pedidos.Domain.Pedidos
             VoucherId = voucherId;
         }
 
+        // EF ctor
+        protected Pedido() { }
+
         public void AutorizarPedido()
         {
             PedidoStatus = PedidoStatus.Autorizado;
