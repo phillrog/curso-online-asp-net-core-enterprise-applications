@@ -6,6 +6,7 @@ using NSE.Core.Data;
 using NSE.Core.Mediator;
 using NSE.Core.Messages;
 using NSE.Pedidos.Domain;
+using NSE.Pedidos.Domain.Pedidos;
 
 namespace NSE.Pedidos.Infra.Data
 {
@@ -20,6 +21,8 @@ namespace NSE.Pedidos.Infra.Data
         }
 
         public DbSet<Voucher> Vouchers { get; set; }
+		public DbSet<Pedido> Pedidos { get; set; }
+        public DbSet<PedidoItem> PedidoItems { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             foreach (var property in modelBuilder.Model.GetEntityTypes().SelectMany(
