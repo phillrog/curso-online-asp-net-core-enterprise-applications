@@ -32,7 +32,14 @@ namespace NSE.Pedidos.Infra.Data
             modelBuilder.Ignore<Event>();
             modelBuilder.Ignore<ValidationResult>();
 
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(PedidosContext).Assembly);         
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(PedidosContext).Assembly);
+
+            foreach (var relationship in modelBuilder.Model.GetEntityTypes()
+               .SelectMany(e => e.GetForeignKeys())) relationship.DeleteBehavior = DeleteBehavior.ClientSetNull;
+
+            modelBuilder.HasSequence<int>("MinhaSequencia").StartsAt(1000).IncrementsBy(1);
+
+            base.OnModelCreating(modelBuilder);
         }
 
         public async Task<bool> Commit()
