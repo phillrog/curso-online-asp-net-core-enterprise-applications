@@ -26,6 +26,11 @@ namespace NSE.Pedidos.API.Application.Commands
         public string NomeCartao { get; set; }
         public string ExpiracaoCartao { get; set; }
         public string CvvCartao { get; set; }
+        public override bool EhValido()
+        {
+            ValidationResult = new AdicionarPedidoValidation().Validate(this);
+            return ValidationResult.IsValid;
+        }
 
         public class AdicionarPedidoValidation : AbstractValidator<AdicionarPedidoCommand>
         {
