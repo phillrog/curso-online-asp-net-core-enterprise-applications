@@ -27,7 +27,7 @@ namespace NSE.Clientes.API.Application.Commands
 
 			if (clienteExistente != null)
 			{
-				AdicionaErro("Este CPF já está em uso");
+				AdicionarErro("Este CPF já está em uso");
 				return ValidationResult;
 			}
 
