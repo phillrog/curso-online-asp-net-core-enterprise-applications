@@ -40,7 +40,7 @@ namespace NSE.Pedidos.API.Application.Queries
             var pedido = await _pedidoRepository.ObterConexao()
                 .QueryAsync<dynamic>(_sql_Pedidos_PedidosItems, new { clienteId });
 
-            return MapearPedido();
+            return MapearPedido(pedido);
         }
 
         public async Task<IEnumerable<PedidoDTO>> ObterListaPorClienteId(Guid clienteId)
@@ -50,10 +50,43 @@ namespace NSE.Pedidos.API.Application.Queries
             return pedidos.Select(PedidoDTO.ParaPedidoDTO);
         }
 
-        private PedidoDTO MapearPedido()
+        private PedidoDTO MapearPedido(dynamic result)
         {
-            return new PedidoDTO();            
+            var pedido = new PedidoDTO
+            {
+                Codigo = result[0].CODIGO,
+                Status = result[0].PEDIDOSTATUS,
+                ValorTotal = result[0].VALORTOTAL,
+                Desconto = result[0].DESCONTO,
+                VoucherUtilizado = result[0].VOUCHERUTILIZADO,
+
+                PedidoItems = new List<PedidoItemDTO>(),
+                Endereco = new EnderecoDTO
+                {
+                    Logradouro = result[0].LOGRADOURO,
+                    Bairro = result[0].BAIRRO,
+                    Cep = result[0].CEP,
+                    Cidade = result[0].CIDADE,
+                    Complemento = result[0].COMPLEMENTO,
+                    Estado = result[0].ESTADO,
+                    Numero = result[0].NUMERO
+                }
+            };
+
+            foreach (var item in result)
+            {
+                var pedidoItem = new PedidoItemDTO
+                {
+                    Nome = item.PRODUTONOME,
+                    Valor = item.VALORUNITARIO,
+                    Quantidade = item.QUANTIDADE,
+                    Imagem = item.PRODUTOIMAGEM
+                };
+
+                pedido.PedidoItems.Add(pedidoItem);
+            }
+
+            return pedido;
         }
-    }
 
 }
