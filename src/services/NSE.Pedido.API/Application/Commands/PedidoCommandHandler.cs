@@ -31,6 +31,9 @@ namespace NSE.Pedidos.API.Application.Commands
             // Aplicar voucher se houver
             if (!await AplicarVoucher(message, pedido)) return ValidationResult;
 
+            // Validar pedido
+            if (!ValidarPedido(pedido)) return ValidationResult;
+
             return null;
 		}
 
@@ -76,6 +79,28 @@ namespace NSE.Pedidos.API.Application.Commands
             voucher.DebitarQuantidade();
 
             _voucherRepository.Atualizar(voucher);
+
+            return true;
+        }
+
+        private bool ValidarPedido(NSE.Pedidos.Domain.Pedidos.Pedido pedido)
+        {
+            var pedidoValorOriginal = pedido.ValorTotal;
+            var pedidoDesconto = pedido.Desconto;
+
+            pedido.CalcularValorPedido();
+
+            if (pedido.ValorTotal != pedidoValorOriginal)
+            {
+                AdicionarErro("O valor total do pedido não confere com o cálculo do pedido");
+                return false;
+            }
+
+            if (pedido.Desconto != pedidoDesconto)
+            {
+                AdicionarErro("O valor total não confere com o cálculo do pedido");
+                return false;
+            }
 
             return true;
         }
