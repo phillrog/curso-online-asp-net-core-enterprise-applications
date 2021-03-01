@@ -89,4 +89,5 @@ namespace NSE.Pedidos.API.Application.Queries
             return pedido;
         }
 
+    }
 }
