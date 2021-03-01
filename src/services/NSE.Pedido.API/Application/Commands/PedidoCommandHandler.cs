@@ -34,6 +34,13 @@ namespace NSE.Pedidos.API.Application.Commands
             // Validar pedido
             if (!ValidarPedido(pedido)) return ValidationResult;
 
+            // Processar pagamento
+            if (!ProcessarPagamento(pedido)) return ValidationResult;
+
+            // Se pagamento tudo ok!
+            pedido.AutorizarPedido();
+
+
             return null;
 		}
 
@@ -102,6 +109,11 @@ namespace NSE.Pedidos.API.Application.Commands
                 return false;
             }
 
+            return true;
+        }
+
+        public bool ProcessarPagamento(NSE.Pedidos.Domain.Pedidos.Pedido pedido)
+        {
             return true;
         }
     }
