@@ -58,4 +58,3 @@ namespace NSE.Pedido.API.Controllers
 		}
 	}
 }
-}
