@@ -46,7 +46,7 @@ namespace NSE.Clientes.API.Configuration
             
             clientesContext.Database.Migrate();
 
-            app.UseHttpsRedirection();
+           //app.UseHttpsRedirection();
 
             app.UseRouting();
 
