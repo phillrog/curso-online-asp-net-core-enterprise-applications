@@ -27,7 +27,7 @@ namespace NSE.WebApp.MVC.Services
 
         public async Task<EnderecoViewModel> ObterEndereco()
         {
-            var response = await _httpClient.GetAsync("cliente/endereco/");
+            var response = await _httpClient.GetAsync("clientes/endereco/");
 
             if (response.StatusCode == HttpStatusCode.NotFound) return null;
 
@@ -40,7 +40,7 @@ namespace NSE.WebApp.MVC.Services
         {
             var enderecoContent = ObterConteudo(endereco);
 
-            var response = await _httpClient.PostAsync("cliente/endereco/", enderecoContent);
+            var response = await _httpClient.PostAsync("clientes/endereco/", enderecoContent);
 
             if (!TratarErrosResponse(response)) return await DeserializarObjetoResponse<ResponseResult>(response);
 
