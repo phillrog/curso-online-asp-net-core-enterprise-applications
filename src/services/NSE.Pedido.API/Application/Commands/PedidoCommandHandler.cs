@@ -1,27 +1,32 @@
-﻿using FluentValidation.Results;
+﻿using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using FluentValidation.Results;
 using MediatR;
 using NSE.Core.Messages;
 using NSE.Pedidos.API.Application.DTO;
+using NSE.Pedidos.API.Application.Events;
 using NSE.Pedidos.Domain;
+using NSE.Pedidos.Domain.Pedidos;
 using NSE.Pedidos.Domain.Specs;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace NSE.Pedidos.API.Application.Commands
 {
-	public class PedidoCommandHandler : CommandHandler,
-		IRequestHandler<AdicionarPedidoCommand, ValidationResult>
-	{
-		private readonly IVoucherRepository _voucherRepository;
+    public class PedidoCommandHandler : CommandHandler,
+        IRequestHandler<AdicionarPedidoCommand, ValidationResult>
+    {
+        private readonly IPedidoRepository _pedidoRepository;
+        private readonly IVoucherRepository _voucherRepository;
 
-		public PedidoCommandHandler(IVoucherRepository voucherRepository)
-		{
+        public PedidoCommandHandler(IVoucherRepository voucherRepository,
+                                    IPedidoRepository pedidoRepository)
+        {
             _voucherRepository = voucherRepository;
+            _pedidoRepository = pedidoRepository;
         }
 
-		public async Task<ValidationResult> Handle(AdicionarPedidoCommand message, CancellationToken cancellationToken)
-		{
+        public async Task<ValidationResult> Handle(AdicionarPedidoCommand message, CancellationToken cancellationToken)
+        {
             // Validação do comando
             if (!message.EhValido()) return message.ValidationResult;
 
@@ -40,13 +45,19 @@ namespace NSE.Pedidos.API.Application.Commands
             // Se pagamento tudo ok!
             pedido.AutorizarPedido();
 
+            // Adicionar Evento
+            pedido.AdicionarEvento(new PedidoRealizadoEvent(pedido.Id, pedido.ClienteId));
 
-            return null;
-		}
+            // Adicionar Pedido Repositorio
+            _pedidoRepository.Adicionar(pedido);
+
+            // Persistir dados de pedido e voucher
+            return await PersistirDados(_pedidoRepository.UnitOfWork);
+        }
 
         private NSE.Pedidos.Domain.Pedidos.Pedido MapearPedido(AdicionarPedidoCommand message)
         {
-            var endereco = new NSE.Pedidos.Domain.Pedidos.Endereco
+            var endereco = new Endereco
             {
                 Logradouro = message.Endereco.Logradouro,
                 Numero = message.Endereco.Numero,
