@@ -25,7 +25,7 @@ namespace NSE.Bff.Compras.Services
 
         public async Task<EnderecoDTO> ObterEndereco()
         {
-            var response = await _httpClient.GetAsync("/cliente/endereco/");
+            var response = await _httpClient.GetAsync("/api/clientes/endereco/");
 
             if (response.StatusCode == HttpStatusCode.NotFound) return null;
 
