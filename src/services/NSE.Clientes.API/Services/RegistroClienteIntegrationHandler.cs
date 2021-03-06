@@ -44,7 +44,7 @@ namespace NSE.Clientes.API.Services
 			_bus.AdvancedBus.Connected += OnConnect;
 		}
 
-		private void OnConnect(object sender, ConnectedEventArgs e)
+		private void OnConnect(object sender, EventArgs e)
 		{
 			SetResponder();
 		}
