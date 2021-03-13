@@ -1,3 +1,4 @@
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -37,6 +38,8 @@ namespace NSE.Pagamento.API
             services.AppSwaggerConfiguration();
 
             services.RegisterServices();
+
+            services.AddMediatR(typeof(Startup));
 
             services.AddMessageBusConfiguration(Configuration);
         }
