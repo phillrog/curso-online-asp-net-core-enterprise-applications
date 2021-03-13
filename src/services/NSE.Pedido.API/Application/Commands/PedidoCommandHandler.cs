@@ -45,7 +45,7 @@ namespace NSE.Pedidos.API.Application.Commands
             if (!ValidarPedido(pedido)) return ValidationResult;
 
             // Processar pagamento
-            if (!ProcessarPagamento(pedido, message)) return ValidationResult;
+            if (! await ProcessarPagamento(pedido, message)) return ValidationResult;
 
             // Se pagamento tudo ok!
             pedido.AutorizarPedido();
@@ -128,7 +128,7 @@ namespace NSE.Pedidos.API.Application.Commands
             return true;
         }
 
-        public async bool ProcessarPagamento(NSE.Pedidos.Domain.Pedidos.Pedido pedido, AdicionarPedidoCommand message)
+        public async Task<bool> ProcessarPagamento(NSE.Pedidos.Domain.Pedidos.Pedido pedido, AdicionarPedidoCommand message)
         {
             var pedidoIniciado = new PedidoIniciadoIntegrationEvent
             {
