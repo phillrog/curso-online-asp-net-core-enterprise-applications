@@ -1,6 +1,6 @@
 using System;
 
-namespace NSE.Pagamento.API
+namespace NSE.Pagamentos.API
 {
 	public class WeatherForecast
 	{

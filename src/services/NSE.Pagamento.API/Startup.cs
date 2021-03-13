@@ -8,7 +8,7 @@ using NSE.Pagamentos.API.Configuration;
 using NSE.Pagamentos.API.Data;
 using NSE.WebAPI.Core.Identidade;
 
-namespace NSE.Pagamento.API
+namespace NSE.Pagamentos.API
 {
 	public class Startup
 	{
