@@ -161,6 +161,26 @@ services:
         networks:
               - local
 
+    nse.pagamento.api:
+        restart: on-failure
+        environment:
+              - ASPNETCORE_ENVIRONMENT=Development
+              - ASPNETCORE_URLS=https://+:5006;http://+:4006
+              - DOTNET_USE_POLLING_FILE_WATCHER=1
+              - CONTAINER=true
+        ports:
+              - "4006:4006"
+              - "5006:5006"
+        volumes:
+              - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+              - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+              - C:\Users\phill\.nuget\packages\:/root/.nuget/packages:ro
+              - ./vsdbg:/vsdbg:ro
+              - ${HOME}/.nuget/packages:/root/.nuget/packages:ro
+              - ${DOTNET_PATH}/sdk/NuGetFallbackFolder:/root/.nuget/fallbackpackages:ro
+        networks:
+              - local
+
     nse.bff.compras:
         restart: on-failure
         environment:
