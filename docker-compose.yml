@@ -41,6 +41,12 @@ services:
       context: .
       dockerfile: src/services/NSE.Pedido.API/Dockerfile    
 
+  nse.pagamento.api:
+    image: ${DOCKER_REGISTRY-}nsepagamentoapi
+    build:
+      context: .
+      dockerfile: src/services/NSE.Pagamento.API/Dockerfile    
+
   nse.bff.compras:
     image: ${DOCKER_REGISTRY-}nsebffcompras
     build:
