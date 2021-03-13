@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NSE.Pagamentos.API.Data;
+using NSE.Pagamentos.Facade;
 using NSE.WebAPI.Core.Identidade;
 using System;
 
@@ -23,6 +24,8 @@ namespace NSE.Pagamentos.API.Configuration
 
             services.AddDbContext<PagamentosContext>(options =>
                options.UseSqlServer(conn, m => m.MigrationsAssembly("NSE.Pagamento.API")));
+
+            services.Configure<PagamentoConfig>(configuration.GetSection("PagamentoConfig"));
 
             services.AddControllers();
 
