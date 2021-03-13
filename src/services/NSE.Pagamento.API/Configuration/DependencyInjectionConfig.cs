@@ -5,6 +5,9 @@ using NSE.Core.Mediator;
 using NSE.Pagamentos.API.Data;
 using NSE.Pagamentos.API.Data.Repository;
 using NSE.Pagamentos.API.Models;
+using NSE.Pagamentos.API.Services;
+using NSE.Pagamentos.CardAntiCorruption;
+using NSE.Pagamentos.Facade;
 using NSE.WebAPI.Core.Usuario;
 
 namespace NSE.Pagamentos.API.Configuration
@@ -18,6 +21,8 @@ namespace NSE.Pagamentos.API.Configuration
 
             services.AddScoped<IMediatorHandler, MediatorHandler>();
 
+            services.AddScoped<IPagamentoService, PagamentoService>();
+            services.AddScoped<IPagamentoFacade, PagamentoCartaoCreditoFacade>();
 
             services.AddScoped<IPagamentoRepository, PagamentoRepository>();
             services.AddScoped<PagamentosContext>();
