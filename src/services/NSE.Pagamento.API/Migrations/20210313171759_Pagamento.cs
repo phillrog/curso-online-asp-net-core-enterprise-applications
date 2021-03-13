@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace NSE.Pagamento.API.Migrations
+namespace NSE.Pagamentos.API.Migrations
 {
     public partial class Pagamento : Migration
     {

@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NSE.Pagamentos.API.Data;
 
-namespace NSE.Pagamento.API.Migrations
+namespace NSE.Pagamentos.API.Migrations
 {
     [DbContext(typeof(PagamentosContext))]
     [Migration("20210313171759_Pagamento")]

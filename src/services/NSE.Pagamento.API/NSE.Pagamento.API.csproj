@@ -5,6 +5,7 @@
     <UserSecretsId>3b126f77-f28d-499e-ac59-488638f80f8c</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>..\..\..</DockerfileContext>
+    <RootNamespace>NSE.Pagamentos.API</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NSE.Pagamentos.API.Data;
 
-namespace NSE.Pagamento.API.Migrations
+namespace NSE.Pagamentos.API.Migrations
 {
     [DbContext(typeof(PagamentosContext))]
     partial class PagamentosContextModelSnapshot : ModelSnapshot
