@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NSE.Pagamentos.API.Configuration;
+using NSE.Pagamentos.API.Data;
 using NSE.WebAPI.Core.Identidade;
 
 namespace NSE.Pagamento.API
@@ -44,11 +45,11 @@ namespace NSE.Pagamento.API
             services.AddMessageBusConfiguration(Configuration);
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, PagamentosContext pagamentosContext)
         {
             app.UseSwaggerConfiguration();
 
-            app.UseApiConfiguration(env);
+            app.UseApiConfiguration(env, pagamentosContext);
         }
     }
 }
