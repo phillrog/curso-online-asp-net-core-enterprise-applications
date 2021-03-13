@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace NSE.Core.Data
+namespace NSE.Core.DomainObjects
 {
 	public abstract class Entity
 	{

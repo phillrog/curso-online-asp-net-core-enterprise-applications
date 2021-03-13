@@ -1,4 +1,4 @@
-﻿using NSE.Core.Data;
+﻿using NSE.Core.DomainObjects;
 using System;
 
 namespace NSE.Clientes.API.Models

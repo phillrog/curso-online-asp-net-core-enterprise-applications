@@ -1,4 +1,4 @@
-﻿using NSE.Core.DomainObjects;
+﻿using NSE.Core.Data;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
