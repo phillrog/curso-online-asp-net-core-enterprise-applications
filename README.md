@@ -11,4 +11,4 @@ Este curso implementa diversos conceitos e boas práticas de desenvolvimento de 
 - Menssageria RabbitMQ
 - Design Patterns
 - Padrões de projetos
-- APIs distruibuidas
+- APIs distribuidas
