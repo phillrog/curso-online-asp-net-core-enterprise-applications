@@ -1,7 +1,8 @@
 using System;
+using Microsoft.Extensioons.Hosting;
 
 namespace NSE.Pedido.API.Services {
-  public class PedidoOrquestradorIntegrationhandler
+  public class PedidoOrquestradorIntegrationhandler : BackgroundService
   {
   }
 }
