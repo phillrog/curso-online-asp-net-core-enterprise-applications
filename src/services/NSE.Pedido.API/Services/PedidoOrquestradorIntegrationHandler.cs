@@ -1,8 +1,13 @@
 using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using NSE.Core.Messages.Integration;
+using NSE.MessageBus;
+using NSE.Pedidos.API.Application.Queries;
 
 namespace NSE.Pedido.API.Services
 {
@@ -32,7 +37,22 @@ namespace NSE.Pedido.API.Services
 
         private async void ProcessarPedidos(object state)
         {
-            _logger.LogInformation("Processando o pedido");
+            using (var scope = _serviceProvider.CreateScope())
+            {
+                var pedidoQueries = scope.ServiceProvider.GetRequiredService<IPedidoQueries>();
+                var pedido = await pedidoQueries.ObterPedidosAutorizados();
+
+                if (pedido == null) return;
+
+                var bus = scope.ServiceProvider.GetRequiredService<IMessageBus>();
+
+                var pedidoAutorizado = new PedidoAutorizadoIntegrationEvent(pedido.ClienteId, pedido.Id,
+                    pedido.PedidoItems.ToDictionary(p => p.ProdutoId, p => p.Quantidade));
+
+                await bus.PublishAsync(pedidoAutorizado);
+
+                _logger.LogInformation($"Pedido ID: {pedido.Id} foi encaminhado para baixa no estoque.");
+            }
         }
 
         public Task StopAsync(CancellationToken cancellationToken)
