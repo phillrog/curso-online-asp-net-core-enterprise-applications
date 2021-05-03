@@ -8,12 +8,16 @@ namespace NSE.Pedido.API.Services
 {
     public class PedidoOrquestradorIntegrationHandler : IHostedService, IDisposable
     {
+
+        private readonly IServiceProvider _serviceProvider;
         private ILogger<PedidoOrquestradorIntegrationHandler> _logger;
         private Timer _timer;
 
-        public PedidoOrquestradorIntegrationHandler(ILogger<PedidoOrquestradorIntegrationHandler> logger)
+        public PedidoOrquestradorIntegrationHandler(ILogger<PedidoOrquestradorIntegrationHandler> logger,
+            IServiceProvider serviceProvider)
         {
             _logger = logger;
+            _serviceProvider = serviceProvider;
         }
 
         public Task StartAsync(CancellationToken cancellationToken)
