@@ -13,7 +13,6 @@ namespace NSE.Pedido.API.Services
 {
     public class PedidoOrquestradorIntegrationHandler : IHostedService, IDisposable
     {
-
         private readonly IServiceProvider _serviceProvider;
         private ILogger<PedidoOrquestradorIntegrationHandler> _logger;
         private Timer _timer;
