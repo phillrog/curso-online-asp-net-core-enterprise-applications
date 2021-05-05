@@ -7,7 +7,7 @@ EXPOSE 5001
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 
-RUN dotnet tool install --global dotnet-ef
+RUN dotnet tool install --ignore-failed-sources --global dotnet-ef
 
 WORKDIR /src
 COPY ["src/services/NSE.Identidade.API/NSE.Identidade.API.csproj", "src/services/NSE.Identidade.API/"]
