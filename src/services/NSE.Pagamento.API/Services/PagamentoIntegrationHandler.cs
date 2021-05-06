@@ -41,6 +41,7 @@ namespace NSE.Pagamentos.API.Services
         protected override Task ExecuteAsync(CancellationToken stoppingToken)
         {
             SetResponder();
+            SetSubscribers();
             return Task.CompletedTask;
         }
 
