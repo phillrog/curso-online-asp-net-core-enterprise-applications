@@ -37,14 +37,12 @@ namespace NSE.Pedidos.API.Configuration
             });
         }
 
-        public static void UseApiConfiguration(this IApplicationBuilder app, IWebHostEnvironment env, PedidosContext pedidosContext)
+        public static void UseApiConfiguration(this IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-
-            pedidosContext.Database.Migrate();
 
             //app.UseHttpsRedirection();
 
