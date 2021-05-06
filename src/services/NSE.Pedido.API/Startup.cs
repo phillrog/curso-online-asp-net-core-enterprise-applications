@@ -46,11 +46,11 @@ namespace NSE.Pedido.API
             services.AddMessageBusConfiguration(Configuration);
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, PedidosContext pedidosContext)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseSwaggerConfiguration();
 
-            app.UseApiConfiguration(env, pedidosContext);
+            app.UseApiConfiguration(env);
         }
     }
 }
