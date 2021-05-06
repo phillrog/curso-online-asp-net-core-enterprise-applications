@@ -23,5 +23,11 @@ namespace NSE.Catalogo.API.Models
         {
             return Ativo && QuantidadeEstoque >= quantidade;
         }
+
+        public void EstornarEstoque(int quantidade)
+        {
+            if (QuantidadeEstoque <= quantidade)
+                QuantidadeEstoque += quantidade;
+        }
     }
 }
