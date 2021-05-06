@@ -82,8 +82,39 @@ namespace NSE.Catalogo.API.Services
             }
         }
 
+        private async Task EstornoEstoque(PedidoAutorizadoIntegrationEvent message)
+        {
+            using (var scope = _serviceProvider.CreateScope())
+            {
+                var produtoEstornarEstoque = new List<Produto>();
+                var produtoRepository = scope.ServiceProvider.GetRequiredService<IProdutoRepository>();
+
+                var idsProdutos = string.Join(",", message.Itens.Select(c => c.Key));
+                var produtos = await produtoRepository.ObterProdutosPorId(idsProdutos);
+
+                foreach (var produto in produtos)
+                {
+                    var quantidadeProduto = message.Itens.FirstOrDefault(p => p.Key == produto.Id).Value;
+                    
+                    produto.EstornarEstoque(quantidadeProduto);
+                    produtoEstornarEstoque.Add(produto);                    
+                }
+                
+                foreach (var produto in produtoEstornarEstoque)
+                {
+                    produtoRepository.Atualizar(produto);
+                }
+
+                if (!await produtoRepository.UnitOfWork.Commit())
+                {
+                    throw new DomainException($"Problemas ao atualizar estoque do pedido {message.PedidoId}");
+                }
+            }
+        }
+
         public async void CancelarPedidoSemEstoque(PedidoAutorizadoIntegrationEvent message)
         {
+            await EstornoEstoque(message);
             var pedidoCancelado = new PedidoCanceladoIntegrationEvent(message.ClienteId, message.PedidoId);
             await _bus.PublishAsync(pedidoCancelado);
         }
