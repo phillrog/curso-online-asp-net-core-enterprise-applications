@@ -22,9 +22,9 @@ namespace NSE.Catalogo.API.Controllers
 
         [AllowAnonymous]
         [HttpGet("produtos")]
-        public async Task<IEnumerable<Produto>> Index()
+        public async Task<PagedResult<Produto>> Index([FromQuery] int pageSize = 8, [FromQuery] int pageIndex = 1, [FromQuery] string query = null)
         {
-            return await _produtoRepository.ObterTodos();
+            return await _produtoRepository.ObterTodos(pageSize, pageIndex, query);
         }
 
         [ClaimsAuthorize("Catalogo", "Ler")]
