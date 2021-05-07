@@ -22,7 +22,7 @@ namespace NSE.Catalogo.API.Controllers
 
         [AllowAnonymous]
         [HttpGet("produtos")]
-        public async Task<PagedResult<Produto>> Index([FromQuery] int pageSize = 8, [FromQuery] int pageIndex = 1, [FromQuery] string query = null)
+        public async Task<PagedResult<Produto>> Index([FromQuery(Name ="pageSize")] int pageSize = 8, [FromQuery(Name ="pageIndex")] int pageIndex = 1, [FromQuery(Name ="query")] string query = null)
         {
             return await _produtoRepository.ObterTodos(pageSize, pageIndex, query);
         }
