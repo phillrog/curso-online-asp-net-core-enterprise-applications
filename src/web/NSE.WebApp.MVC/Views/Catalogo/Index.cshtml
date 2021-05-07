@@ -1,5 +1,5 @@
 ﻿@using NSE.WebApp.MVC.Extensions
-@model IEnumerable<NSE.WebApp.MVC.Models.ProdutoViewModel>
+@model PagedViewModel<ProdutoViewModel>
 
 @{
 	ViewData["Title"] = "Todos os produtos";
@@ -15,7 +15,7 @@
 		<div class="container" style=" padding-top: 20px">
 			<div class="row">
 				@{
-					foreach (var produto in Model.OrderBy(p => p.Nome))
+					foreach (var produto in Model.List.Where(p => p.Ativo).OrderBy(p => p.Nome))
 					{
 						<div class="col-md-3">
 							<div href="#" class="card card-product-grid">
@@ -40,6 +40,29 @@
 					}
 				}
 			</div>
+			<nav>
+                <ul class="pagination justify-content-center">
+                    @{
+                        for (int i = 1; i <= Model.TotalPages; i++)
+                        {
+                            if (i == Model.PageIndex)
+                            {
+                                <li class="page-item active">
+                                    <a class="page-link" asp-action="Index" asp-route-pageSize="@Model.PageSize" asp-route-pageIndex="@i"
+                                       asp-route-query="@Model.Query">@i <span class="sr-only">(current)</span></a>
+                                </li>
+                            }
+                            else
+                            {
+								<li class="page-item">
+									<a class="page-link" asp-action="Index" asp-route-pageSize="@Model.PageSize" asp-route-pageIndex="@i"
+									   asp-route-query="@Model.Query">@i</a>
+								</li>
+                            }
+                        }
+                    }
+                </ul>
+			</nav>
 		</div>
 	</div>
 </section>
