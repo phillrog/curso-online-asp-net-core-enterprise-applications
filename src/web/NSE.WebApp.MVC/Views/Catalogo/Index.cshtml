@@ -40,29 +40,7 @@
 					}
 				}
 			</div>
-			<nav>
-                <ul class="pagination justify-content-center">
-                    @{
-                        for (int i = 1; i <= Model.TotalPages; i++)
-                        {
-                            if (i == Model.PageIndex)
-                            {
-                                <li class="page-item active">
-                                    <a class="page-link" asp-action="Index" asp-route-pageSize="@Model.PageSize" asp-route-pageIndex="@i"
-                                       asp-route-query="@Model.Query">@i <span class="sr-only">(current)</span></a>
-                                </li>
-                            }
-                            else
-                            {
-								<li class="page-item">
-									<a class="page-link" asp-action="Index" asp-route-pageSize="@Model.PageSize" asp-route-pageIndex="@i"
-									   asp-route-query="@Model.Query">@i</a>
-								</li>
-                            }
-                        }
-                    }
-                </ul>
-			</nav>
+			<vc:paginacao modelo-paginado="@Model"></vc:paginacao>
 		</div>
 	</div>
 </section>
