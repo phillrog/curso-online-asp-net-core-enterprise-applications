@@ -14,10 +14,10 @@ namespace NSE.Identidade.API.Configuration
 		{
 			services.AddControllers();
 
-            services.AddHttpsRedirection(options =>
-            {
-                options.HttpsPort = 5001;
-            });
+            //services.AddHttpsRedirection(options =>
+            //{
+            //    options.HttpsPort = 5001;
+            //});
 
             services.AddScoped<IAspNetUser, AspNetUser>();
 
@@ -31,7 +31,7 @@ namespace NSE.Identidade.API.Configuration
 				app.UseDeveloperExceptionPage();
 			}
 
-			app.UseHttpsRedirection();
+			//app.UseHttpsRedirection();
 
 			app.UseRouting();
 
