@@ -21,7 +21,10 @@ namespace NSE.Identidade.API.Configuration
 				conn = configuration.GetConnectionString("Container");
 			else
 				conn = configuration.GetConnectionString("Localhost");
-			
+
+			var appSettingsSection = configuration.GetSection("AppTokenSettings");
+			services.Configure<AppTokenSettings>(appSettingsSection);
+
 			services.AddDbContext<ApplicationDbContext>(options =>
 				options.UseSqlServer(conn));
 
