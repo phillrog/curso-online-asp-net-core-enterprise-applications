@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using NSE.WebAPI.Core.Identidade;
 using NetDevPack.Security.JwtSigningCredentials.AspNetCore;
 using NSE.WebAPI.Core.Usuario;
+using NSE.Identidade.API.Services;
 
 namespace NSE.Identidade.API.Configuration
 {
@@ -14,11 +15,12 @@ namespace NSE.Identidade.API.Configuration
 		{
 			services.AddControllers();
 
-            //services.AddHttpsRedirection(options =>
-            //{
-            //    options.HttpsPort = 5001;
-            //});
+			//services.AddHttpsRedirection(options =>
+			//{
+			//    options.HttpsPort = 5001;
+			//});
 
+			services.AddScoped<AuthenticationService>();
             services.AddScoped<IAspNetUser, AspNetUser>();
 
 			return services;
