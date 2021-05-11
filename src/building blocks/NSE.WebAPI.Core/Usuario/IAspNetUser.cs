@@ -15,5 +15,6 @@ namespace NSE.WebAPI.Core.Usuario
         bool PossuiRole(string role);
         IEnumerable<Claim> ObterClaims();
         HttpContext ObterHttpContext();
+        string ObterUserRefreshToken();
     }
 }
