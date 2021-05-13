@@ -21,6 +21,8 @@ namespace NSE.Bff.Compras.Services.gRPC
 
         public async Task<CarrinhoDTO> ObterCarrinho()
         {
+            AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
+
             var response = await _carrinhoComprasClient.ObterCarrinhoAsync(new ObterCarrinhoRequest());
             return MapCarrinhoClienteProtoResponseToDTO(response);
         }
