@@ -58,3 +58,9 @@ services:
     build:
       context: .
       dockerfile: src/web/NSE.WebApp.MVC/Dockerfile     
+
+  nerdstore-server:
+    image: nginx:latest
+    build: 
+      context: .
+      dockerfile: docker/nginx/Dockerfile 

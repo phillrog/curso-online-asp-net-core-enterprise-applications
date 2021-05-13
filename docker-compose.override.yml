@@ -226,6 +226,16 @@ services:
         networks:
               - local
 
+    nerdstore-server:
+        image: nginx:latest
+        container_name: nerdstore-server    
+        restart: always 
+        ports:
+            - "80:80"
+            - "443:443"
+        depends_on:
+            - nse.webapp.mvc
+
 networks:
     local:
         driver: bridge

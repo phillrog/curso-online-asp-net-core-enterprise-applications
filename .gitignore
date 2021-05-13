@@ -36,3 +36,4 @@
 /src/services/NSE.Pagamentos.NerdsPag/bin/Debug/netcoreapp3.1
 /src/services/NSE.Pagamentos.NerdsPag/obj
 /src/services/NSE.Pagamentos.API/obj/Docker
+/docker/nginx/obj/Docker
