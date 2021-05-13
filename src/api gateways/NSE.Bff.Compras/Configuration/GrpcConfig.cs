@@ -16,7 +16,7 @@ namespace NSE.Bff.Compras.Configuration
 
             services.AddGrpcClient<CarrinhoCompras.CarrinhoComprasClient>(options =>
             {
-                options.Address = new Uri(configuration["CarrinhoUrl"]);
+                options.Address = new Uri("http://nse.carrinho.api:4014");
             }).AddInterceptor<GrpcServiceInterceptor>();
         }
     }
