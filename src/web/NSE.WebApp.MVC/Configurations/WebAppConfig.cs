@@ -39,7 +39,7 @@ namespace NSE.WebApp.MVC.Configurations
 			app.UseExceptionHandler("/erro/500");
 			app.UseStatusCodePagesWithRedirects("/erro/{0}");
 			app.UseHsts();
-			//app.UseHttpsRedirection();
+			app.UseHttpsRedirection();
 			app.UseStaticFiles();
 
 			app.UseRouting();
