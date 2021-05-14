@@ -6,6 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using NetDevPack.Security.JwtExtensions;
 using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Text;
 
 namespace NSE.WebAPI.Core.Identidade
@@ -26,7 +27,8 @@ namespace NSE.WebAPI.Core.Identidade
                 x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer(x =>
             {
-                x.RequireHttpsMetadata = false;
+                x.RequireHttpsMetadata = true;
+                x.BackchannelHttpHandler = new HttpClientHandler { ServerCertificateCustomValidationCallback = delegate { return true; } };
                 x.SaveToken = true;
                 x.SetJwksOptions(new JwkOptions(appSettings.AutenticacaoJwksUrl));
             });
