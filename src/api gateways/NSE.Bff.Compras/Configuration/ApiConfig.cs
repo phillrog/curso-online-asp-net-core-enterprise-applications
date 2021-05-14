@@ -29,7 +29,7 @@ namespace NSE.Bff.Compras.Configuration
 				app.UseDeveloperExceptionPage();
 			}
 
-			//app.UseHttpsRedirection();
+			app.UseHttpsRedirection();
 
 			app.UseRouting();
 
