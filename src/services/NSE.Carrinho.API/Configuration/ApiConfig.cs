@@ -46,7 +46,7 @@ namespace NSE.Carrinho.API.Configuration
 
 			carrinhoContexto.Database.Migrate();
 
-			//app.UseHttpsRedirection();
+			app.UseHttpsRedirection();
 
 			app.UseRouting();
 

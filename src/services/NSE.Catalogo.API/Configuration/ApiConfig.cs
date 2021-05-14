@@ -43,7 +43,7 @@ namespace NSE.Catalogo.API.Configuration
 
 			catalogoContext.Database.Migrate();
 
-			//app.UseHttpsRedirection();
+			app.UseHttpsRedirection();
 
 			app.UseRouting();
 

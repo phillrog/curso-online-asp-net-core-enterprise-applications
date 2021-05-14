@@ -15,12 +15,12 @@ namespace NSE.Identidade.API.Configuration
 		{
 			services.AddControllers();
 
-			//services.AddHttpsRedirection(options =>
-			//{
-			//    options.HttpsPort = 5001;
-			//});
+            //services.AddHttpsRedirection(options =>
+            //{
+            //    options.HttpsPort = 5001;
+            //});
 
-			services.AddScoped<AuthenticationService>();
+            services.AddScoped<AuthenticationService>();
             services.AddScoped<IAspNetUser, AspNetUser>();
 
 			return services;
@@ -28,12 +28,14 @@ namespace NSE.Identidade.API.Configuration
 
 		public static IApplicationBuilder UseApiConfiguration(this IApplicationBuilder app, IWebHostEnvironment env)
 		{
+			app.UseHttpsRedirection();
+
 			if (env.IsDevelopment())
 			{
 				app.UseDeveloperExceptionPage();
 			}
 
-			//app.UseHttpsRedirection();
+			app.UseHsts();
 
 			app.UseRouting();
 
