@@ -23,12 +23,12 @@ namespace NSE.Carrinho.API
 			Host.CreateDefaultBuilder(args)
 				.ConfigureWebHostDefaults(webBuilder =>
 				{
-					webBuilder.UseKestrel(opts =>
-					{
-						opts.ListenAnyIP(4004, opts => opts.Protocols = HttpProtocols.Http1);
-						opts.ListenAnyIP(5004, opts => { opts.Protocols = HttpProtocols.Http1; });
-						opts.ListenAnyIP(4014, opts => opts.Protocols = HttpProtocols.Http2);
-					});
+					//webBuilder.UseKestrel(opts =>
+					//{
+					//	opts.ListenAnyIP(4004, opts => opts.Protocols = HttpProtocols.Http1);
+					//	opts.ListenAnyIP(5004, opts => { opts.Protocols = HttpProtocols.Http1; });
+					//	opts.ListenAnyIP(4014, opts => opts.Protocols = HttpProtocols.Http2);
+					//});
 					
 					webBuilder.UseStartup<Startup>();
 				});
